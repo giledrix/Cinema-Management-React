@@ -6,6 +6,7 @@ import EditMember_Comp from './EditMember';
 import AddMember_Comp from './AddMember';
 import NewSubscription_Comp from './NewSubscription';
 import usersBL from '../../BL/usersBL';
+import CurrentUser from '../../Utils/CurrentUser';
 import SubsLogo from '../../Style/images/SubscribeLogo.png';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ButtonGroup from "@mui/material/ButtonGroup";
@@ -88,7 +89,7 @@ function SubscriptionManagementContainer_Comp(props) {
       <ThemeProvider theme={theme}>
         <ButtonGroup disableElevation variant="contained">
           <Button color={allMembersSelected ? "selected" : "unSelected"} value="allMembers" onClick={() => navigateToAllMembers()}>All Members</Button>
-          <Button color={addMemberSelected ? "selected" : "unSelected"} value="addMember" onClick={() => navigateAddMember()} >Add Member   </Button>
+          {CurrentUser.getPermission("Create Subscriptions") ?  <Button color={addMemberSelected ? "selected" : "unSelected"} value="addMember" onClick={() => navigateAddMember()} >Add Member   </Button> : null}
         </ButtonGroup>
       </ThemeProvider>
 

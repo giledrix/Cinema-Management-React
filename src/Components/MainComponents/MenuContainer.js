@@ -73,7 +73,7 @@ function MenuContainer_Comp(props) {
 
 
                 {CurrentUser.getPermission("View Movies") ? <BottomNavigationAction label="Movies" component={Link} to={path + "/movies/allMovies"} icon={<MovieIcon />} /> : null}
-                <BottomNavigationAction label="Subscriptions" component={Link} to={path + "/SubscriptionManagement"} icon={<SubscriptionsIcon color="yellow" />} />
+                {CurrentUser.getPermission("View Subscriptions") ? <BottomNavigationAction label="Subscriptions" component={Link} to={path + "/SubscriptionManagement"} icon={<SubscriptionsIcon color="yellow" />} /> : null}
                 {CurrentUser.getClassification() == "administrator" ? <BottomNavigationAction label="Users Management" component={Link} to={path + "/usersmanagement"} icon={<GroupIcon />} /> : null}
                 <BottomNavigationAction onClick={() => userLogout()} label={"Logout(" + CurrentUser.getName() +")"} icon={<ExitToAppIcon />} />
             </BottomNavigation>

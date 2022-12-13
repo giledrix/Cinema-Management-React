@@ -1,4 +1,5 @@
 import { SubscriptionsContext } from './SubscriptionsContext'
+import CurrentUser from '../../Utils/CurrentUser';
 import { useContext, useEffect } from 'react';
 import '../../Style/user.css';
 import { withRouter } from 'react-router-dom';
@@ -82,15 +83,15 @@ function Member_Comp(props) {
                             </Typography>
                         </CardContent>
                         <CardActions style={{ backgroundColor: 'black' }} >
-                            <Button size="small" onClick={() => navToEditMember()} style={{ color: '#FFC107' }}>Edit</Button>
-                            <Button size="small" onClick={() => deleteMember()} style={{ color: '#FFC107' }}>Delete</Button>
+                            {CurrentUser.getPermission("Update Subscriptions") ? <Button size="small" onClick={() => navToEditMember()} style={{ color: '#FFC107' }}>Edit</Button> : null}
+                            {CurrentUser.getPermission("Delete Subscriptions") ? <Button size="small" onClick={() => deleteMember()} style={{ color: '#FFC107' }}>Delete</Button> : null}
                         </CardActions>
                     </React.Fragment>
                 </Card>
             </Box>
-            
-            <br/><br/>
-            
+
+            <br /><br />
+
 
         </div>
     );

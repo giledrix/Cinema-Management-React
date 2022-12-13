@@ -7,6 +7,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
+import CurrentUser from '../../Utils/CurrentUser';
 import Typography from '@material-ui/core/Typography';
 import { withRouter } from 'react-router-dom';
 import { useContext, useState } from 'react';
@@ -98,12 +99,11 @@ function Movie_Comp(props) {
           </CardContent>
         </CardActionArea>
         <CardActions style={{ backgroundColor: 'black' }} >
-          <Button size="small" color="primary" onClick={() => navToEditMovie()} style={{ color: '#FFC107' }}>
-            Edit
-          </Button>
-          <Button size="small" color="primary" onClick={() => deleteMovie()} style={{ color: '#FFC107' }}>
-            Delete
-          </Button>
+
+          {CurrentUser.getPermission("Update Movies") ? <Button size="small" color="primary" onClick={() => navToEditMovie()} style={{ color: '#FFC107' }}>Edit</Button> : null}
+
+          {CurrentUser.getPermission("Delete Movies") ? <Button size="small" color="primary" onClick={() => deleteMovie()} style={{ color: '#FFC107' }}>Delete</Button> : null}
+
         </CardActions>
       </Card>
 
