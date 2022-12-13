@@ -1,0 +1,37 @@
+#new_user_lable {
+    background: -webkit-linear-gradient(#141414, #000000);
+    background-clip: padding-box;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+#createUserLink {
+    color: rgb(123, 123, 233);
+    text-decoration: underline;
+    cursor: pointer;
+   
+}
+
+#formBox{
+    background-color: #FFC107;
+    box-shadow: 0px 14px 80px rgba(32, 35, 58, 0.2);
+    border-radius: 25px;
+    border-color: black;
+    border-style: solid;
+    border-width: 3px;
+    padding: 20px;
+}
+
+
+
+h1 ,h2{ 
+    background: -webkit-linear-gradient(#000000, #5a5959);
+    background-clip: padding-box;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+
+

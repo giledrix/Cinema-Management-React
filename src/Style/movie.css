@@ -1,0 +1,20 @@
+#name {
+    text-align: start;
+}
+
+#body {
+    text-align: start;
+   
+}
+
+#geners {
+    text-align: start;
+}
+
+h2{ 
+    background: -webkit-linear-gradient(#000000, #444444);
+    background-clip: padding-box;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+

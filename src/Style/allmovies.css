@@ -1,0 +1,20 @@
+#search{
+    color: black;
+    padding: 20;
+    height: 30px;
+    width: 450px;
+    border-color: black;
+    border-radius: 6px;
+    background-color: #FFC107;
+}
+
+#searchBtn{
+    height: 35px;
+    border-color: #FFC107;
+    border-radius: 6px;
+    padding: 20;
+    background-color: black;
+    color: #FFC107;
+
+}
+
