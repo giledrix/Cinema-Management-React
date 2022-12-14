@@ -40,26 +40,28 @@ function UsersManagementContainer_Comp(props) {
     let classification = CurrentUser.getClassification();
 
     if (classification != "administrator") {
-      props.history.push('/menu/movies/allMovies');
-    }
-
-    // Check if User Token is valid(expired etc..)
-    let resp = await usersBL.verifyUserToken();
-
-    if (resp) {
-      if (resp.data.message == "jwt TokenExpiredError" || resp.data.message == "No token provided." || resp.data.message == "Failed to authenticate token") {
-        sessionStorage.clear();
-        showSnackbarAlret('Token is invalid or expired', 'error');
-        props.history.push('/');
-      }
-      else {
-        props.history.push(url + "/allusers");
-      }
+      props.history.push('/menu');
     }
     else {
-      showSnackbarAlret('Token is invalid', 'error');
-      props.history.push('/');
+      // Check if User Token is valid(expired etc..)
+      let resp = await usersBL.verifyUserToken();
+
+      if (resp) {
+        if (resp.data.message == "jwt TokenExpiredError" || resp.data.message == "No token provided." || resp.data.message == "Failed to authenticate token") {
+          sessionStorage.clear();
+          showSnackbarAlret('Token is invalid or expired', 'error');
+          props.history.push('/');
+        }
+        else {
+          props.history.push(url + "/allusers");
+        }
+      }
+      else {
+        showSnackbarAlret('Token is invalid', 'error');
+        props.history.push('/');
+      }
     }
+
 
   }, []);
 

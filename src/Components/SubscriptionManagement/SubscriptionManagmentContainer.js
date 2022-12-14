@@ -1,6 +1,6 @@
 import { SubscriptionDataContextProvider } from './SubscriptionsContext'
 import { Switch, Route, Link, useRouteMatch, withRouter, useLocation } from 'react-router-dom';
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 import AllMembers_Comp from './AllMembers';
 import EditMember_Comp from './EditMember';
 import AddMember_Comp from './AddMember';
@@ -38,24 +38,30 @@ function SubscriptionManagementContainer_Comp(props) {
 
   // check if user is authenticate (run in first render AND also when location change)
   useEffect(async () => {
-    
-    // Check if User Token is valid(expired etc..)
-    let resp = await usersBL.verifyUserToken();
 
-    if (resp) {
-      if (resp.data.message == "jwt TokenExpiredError" || resp.data.message == "No token provided." || resp.data.message == "Failed to authenticate token") {
-        sessionStorage.clear();
-        showSnackbarAlret('Token is invalid or expired', 'error');
-        props.history.push('/');
+    if (CurrentUser.getPermission("View Subscriptions")) {// Prevent appropriate permissions users to naviagte Subsctiption page via URL
+      // Check if User Token is valid(expired etc..)
+      let resp = await usersBL.verifyUserToken();
+
+      if (resp) {
+        if (resp.data.message == "jwt TokenExpiredError" || resp.data.message == "No token provided." || resp.data.message == "Failed to authenticate token") {
+          sessionStorage.clear();
+          showSnackbarAlret('Token is invalid or expired', 'error');
+          props.history.push('/');
+        }
+        else {
+          props.history.push(url + "/allMembers");
+        }
       }
       else {
-        props.history.push(url + "/allMembers");
+        showSnackbarAlret('Token is invalid', 'error');
+        props.history.push('/');
       }
     }
     else {
-      showSnackbarAlret('Token is invalid', 'error');
-      props.history.push('/');
+      props.history.push('/menu');
     }
+
   }, []);
 
   const navigateToAllMembers = () => {
@@ -89,7 +95,7 @@ function SubscriptionManagementContainer_Comp(props) {
       <ThemeProvider theme={theme}>
         <ButtonGroup disableElevation variant="contained">
           <Button color={allMembersSelected ? "selected" : "unSelected"} value="allMembers" onClick={() => navigateToAllMembers()}>All Members</Button>
-          {CurrentUser.getPermission("Create Subscriptions") ?  <Button color={addMemberSelected ? "selected" : "unSelected"} value="addMember" onClick={() => navigateAddMember()} >Add Member   </Button> : null}
+          {CurrentUser.getPermission("Create Subscriptions") ? <Button color={addMemberSelected ? "selected" : "unSelected"} value="addMember" onClick={() => navigateAddMember()} >Add Member   </Button> : null}
         </ButtonGroup>
       </ThemeProvider>
 

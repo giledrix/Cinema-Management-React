@@ -34,27 +34,32 @@ function AllMovies_Comp(props) {
   // will run on first render and get all Movies data from WS and then store it in state 
   useEffect(async () => {
 
-    let resp = await usersBL.verifyUserToken();
-
-    // Check if user token expired
-    if (resp && resp.data.message == "jwt TokenExpiredError") {
-      sessionStorage.clear();
-      props.history.push('/');
-    }
-    else {
-      let userToken = await CurrentUser.getSubscribtionsWSToken();
-
-      if (userToken == undefined) {
+    if (CurrentUser.getPermission("View Movies")) { // Prevent appropriate permissions users to naviagte Movies page via URL
+      // Check if user token expired
+      let resp = await usersBL.verifyUserToken();
+      if (resp && resp.data.message == "jwt TokenExpiredError") {
+        sessionStorage.clear();
         props.history.push('/');
       }
       else {
-        if (id) {
-          searchMovie(id); // present spesific movie (press on movie name in subscribtion)
+        let userToken = await CurrentUser.getSubscribtionsWSToken();
+
+        if (userToken == undefined) {
+          props.history.push('/');
         }
         else {
-          getAllMovies();
+          if (id) {
+            searchMovie(id); // present spesific movie (press on movie name in subscribtion)
+          }
+          else {
+            getAllMovies();
+          }
         }
       }
+
+    }
+    else {
+      props.history.push('/menu');
     }
 
 

@@ -1,9 +1,11 @@
 import '../../Style/AddUser.css';
 import { withRouter } from 'react-router-dom';
 import React from 'react';
+import { useEffect } from 'react';
 import { SubscriptionsContext } from './SubscriptionsContext'
-import { useContext,useState } from 'react';
+import { useContext, useState } from 'react';
 import SubscriptionsBL from '../../BL/SubscriptionsBL';
+import CurrentUser from '../../Utils/CurrentUser';
 import Box from '@mui/material/Box';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -132,7 +134,7 @@ function EditMember_Comp(props) {
 
                 <form noValidate autoComplete="off" onSubmit={e => checkInputs(e)}>
 
-                    <h2>Edit : {memberData.Name} </h2> 
+                    <h2>Edit : {memberData.Name} </h2>
 
                     <TextField
                         id="outlined-basic"
@@ -228,7 +230,7 @@ function EditMember_Comp(props) {
                     <br /><br />
 
 
-                   
+
 
                     <Button
                         className={classes.btn}
@@ -256,7 +258,7 @@ function EditMember_Comp(props) {
                     </Button><br />
 
 
-                   
+
                 </form>
 
             </Box>

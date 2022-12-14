@@ -11,6 +11,7 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import MovieIcon from '@material-ui/icons/Movie';
 import SubscriptionsIcon from '@material-ui/icons/Subscriptions';
 import GroupIcon from '@material-ui/icons/Group';
+import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { useSnackbar } from 'notistack';
 
@@ -42,7 +43,7 @@ function MenuContainer_Comp(props) {
 
         if (userToken == undefined || userToken == null) {
             props.history.push('/');
-        }        
+        }
     }, []);
 
 
@@ -71,11 +72,11 @@ function MenuContainer_Comp(props) {
                 className={classes.root}
             >
 
-
+                <BottomNavigationAction label="Home" component={Link} to={path + "/"} icon={<HomeIcon />} />
                 {CurrentUser.getPermission("View Movies") ? <BottomNavigationAction label="Movies" component={Link} to={path + "/movies/allMovies"} icon={<MovieIcon />} /> : null}
                 {CurrentUser.getPermission("View Subscriptions") ? <BottomNavigationAction label="Subscriptions" component={Link} to={path + "/SubscriptionManagement"} icon={<SubscriptionsIcon color="yellow" />} /> : null}
                 {CurrentUser.getClassification() == "administrator" ? <BottomNavigationAction label="Users Management" component={Link} to={path + "/usersmanagement"} icon={<GroupIcon />} /> : null}
-                <BottomNavigationAction onClick={() => userLogout()} label={"Logout(" + CurrentUser.getName() +")"} icon={<ExitToAppIcon />} />
+                <BottomNavigationAction onClick={() => userLogout()} label={"Logout(" + CurrentUser.getName() + ")"} icon={<ExitToAppIcon />} />
             </BottomNavigation>
 
 

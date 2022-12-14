@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import SubscriptionsBL from '../../BL/SubscriptionsBL';
+import CurrentUser from '../../Utils/CurrentUser';
 import usersBL from '../../BL/usersBL';
 import { useSnackbar } from 'notistack';
 
@@ -17,22 +18,27 @@ function AllMembers_Comp(props) {
   // will run on first render and get all users data from all sources and then store the data in state 
   useEffect(async () => {
 
-    // Check if User Token is valid(expired etc..)
-    let resp = await usersBL.verifyUserToken();
+    if (CurrentUser.getPermission("View Subscriptions")) { // Prevent appropriate permissions users to naviagte sunscriptions page via URL
+      // Check if User Token is valid(expired etc..)
+      let resp = await usersBL.verifyUserToken();
 
-    if (resp) {
-      if (resp.data.message == "jwt TokenExpiredError" || resp.data.message == "No token provided." || resp.data.message == "Failed to authenticate token") {
-        sessionStorage.clear();
-        showSnackbarAlret('Token is invalid or expired', 'error');
-        props.history.push('/');
+      if (resp) {
+        if (resp.data.message == "jwt TokenExpiredError" || resp.data.message == "No token provided." || resp.data.message == "Failed to authenticate token") {
+          sessionStorage.clear();
+          showSnackbarAlret('Token is invalid or expired', 'error');
+          props.history.push('/');
+        }
+        else {
+          getAllMembers();
+        }
       }
       else {
-        getAllMembers();
+        props.history.push('/');
       }
+
     }
     else {
-      showSnackbarAlret('Token is invalid', 'error');
-      props.history.push('/');
+      props.history.push('/menu');
     }
   }, []);
 
