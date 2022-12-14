@@ -1,8 +1,8 @@
 import '../../Style/AddUser.css';
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import React from 'react';
-import { makeStyles} from '@material-ui/styles';
+import { makeStyles } from '@material-ui/styles';
 import usersBL from '../../BL/usersBL';
 import { useSnackbar } from 'notistack';
 import Box from '@mui/material/Box';
@@ -52,7 +52,7 @@ const useStyles = makeStyles({
 
   cssLabel: {
     color: "black !important" // label color when out of focus
-  
+
   },
 });
 
@@ -78,8 +78,8 @@ function AddUser_Comp(props) {
       showSnackbarAlret('Session is timeout !!', 'error');
       props.history.push('/');
     }
-    
-    
+
+
   }, []);
 
   const premissionsHandler = (e) => {
@@ -103,9 +103,30 @@ function AddUser_Comp(props) {
       }
     }
     else { // if unchecked
-      let index = updatedPermissionsArry.indexOf(e.target.value); // search the permission in the permisiion array
-      if (index > -1) { // if is founded
-        updatedPermissionsArry.splice(index, 1); // remove him
+
+      if (e.target.value == "View Movies") { // if "View Movies" then delete Create,Delete,Update also
+        let permissionsForDeleteArr = ["View Movies", "Create Movies", "Delete Movies", "Update Movies"];
+        permissionsForDeleteArr.forEach(p => {
+          let index = updatedPermissionsArry.indexOf(p); // search the permission in the permisiion array
+          if (index > -1) { // if is founded
+            updatedPermissionsArry.splice(index, 1); // remove him
+          }
+        });
+      }
+      else if (e.target.value == "View Subscriptions") {// if "View Movies" then delete Create,Delete,Update subscription also
+        let permissionsForDeleteArr = ["View Subscriptions", "Create Subscriptions", "Update Subscriptions", "Delete Subscriptions"];
+        permissionsForDeleteArr.forEach(p => {
+          let index = updatedPermissionsArry.indexOf(p); // search the permission in the permisiion array
+          if (index > -1) { // if is founded
+            updatedPermissionsArry.splice(index, 1); // remove him
+          }
+        });
+      }
+      else {
+        let index = updatedPermissionsArry.indexOf(e.target.value); // search the permission in the permisiion array
+        if (index > -1) { // if is founded
+          updatedPermissionsArry.splice(index, 1); // remove him
+        }
       }
     }
 
@@ -318,7 +339,7 @@ function AddUser_Comp(props) {
               onChange={e => setUser({ ...user, classification: e.target.value })}
 
               renderValue={(value) => {
-                
+
                 return (
                   <Box sx={{ display: "flex", gap: 1 }}>
                     <SvgIcon color="primary">
@@ -343,19 +364,19 @@ function AddUser_Comp(props) {
 
           <FormControlLabel control={<Checkbox />} label="View Subscriptions" id="view_subscriptions" name="ViewSubscriptions" value="View Subscriptions" checked={user.permissions.includes("View Subscriptions") ? true : false} onChange={(e) => premissionsHandler(e)} />
 
-          <FormControlLabel control={<Checkbox />} label="Create Subscriptions" id="create_sub" name="CreateSubscriptions" value="Create Subscriptions" onChange={e => premissionsHandler(e)} /><br />
+          <FormControlLabel control={<Checkbox />} label="Create Subscriptions" id="create_sub" name="CreateSubscriptions" value="Create Subscriptions" checked={user.permissions.includes("Create Subscriptions") ? true : false} onChange={e => premissionsHandler(e)} /><br />
 
-          <FormControlLabel control={<Checkbox />} label="Delete Subscriptions" id="delete_sub" name="DeleteSubscriptions" value="Delete Subscriptions" onChange={e => premissionsHandler(e)} />
+          <FormControlLabel control={<Checkbox />} label="Delete Subscriptions" id="delete_sub" name="DeleteSubscriptions" value="Delete Subscriptions" checked={user.permissions.includes("Delete Subscriptions") ? true : false} onChange={e => premissionsHandler(e)} />
 
-          <FormControlLabel control={<Checkbox />} label="Update Subscriptions" id="update_sub" name="UpdateSubscriptions" value="Update Subscriptions" onChange={e => premissionsHandler(e)} /><br />
+          <FormControlLabel control={<Checkbox />} label="Update Subscriptions" id="update_sub" name="UpdateSubscriptions" value="Update Subscriptions" checked={user.permissions.includes("Update Subscriptions") ? true : false} onChange={e => premissionsHandler(e)} /><br />
 
           <FormControlLabel control={<Checkbox />} label="View Movies" id="view_movie" name="ViewMovies" value="View Movies" checked={user.permissions.includes("View Movies") ? true : false} onChange={(e) => premissionsHandler(e)} />
 
-          <FormControlLabel control={<Checkbox />} label="Create Movies" id="create_movie" name="CreateMovies" value="Create Movies" onChange={e => premissionsHandler(e)} /><br />
+          <FormControlLabel control={<Checkbox />} label="Create Movies" id="create_movie" name="CreateMovies" value="Create Movies" checked={user.permissions.includes("Create Movies") ? true : false} onChange={e => premissionsHandler(e)} /><br />
 
-          <FormControlLabel control={<Checkbox />} label="Delete Movies" id="delete_movie" name="DeleteMovies" value="Delete Movies" onChange={e => premissionsHandler(e)} />
+          <FormControlLabel control={<Checkbox />} label="Delete Movies" id="delete_movie" name="DeleteMovies" value="Delete Movies" checked={user.permissions.includes("Delete Movies") ? true : false} onChange={e => premissionsHandler(e)} />
 
-          <FormControlLabel control={<Checkbox />} label="Update Movies" id="update_movie" name="UpdateMovies" value="Update Movies" onChange={e => premissionsHandler(e)} /><br />
+          <FormControlLabel control={<Checkbox />} label="Update Movies" id="update_movie" name="UpdateMovies" value="Update Movies" checked={user.permissions.includes("Update Movies") ? true : false} onChange={e => premissionsHandler(e)} /><br />
 
           <br /><br />
 

@@ -90,9 +90,29 @@ function EditUser_Comp(props) {
       }
     }
     else { // if unchecked
-      let index = updatedPermissionsArry.indexOf(e.target.value); // search the permission in the permisiion array
-      if (index > -1) { // if is founded
-        updatedPermissionsArry.splice(index, 1); // remove him
+      if (e.target.value == "View Movies") { // if "View Movies" then delete Create,Delete,Update also
+        let permissionsForDeleteArr = ["View Movies", "Create Movies", "Delete Movies", "Update Movies"];
+        permissionsForDeleteArr.forEach(p => {
+          let index = updatedPermissionsArry.indexOf(p); // search the permission in the permisiion array
+          if (index > -1) { // if is founded
+            updatedPermissionsArry.splice(index, 1); // remove him
+          }
+        });
+      }
+      else if (e.target.value == "View Subscriptions") {// if "View Movies" then delete Create,Delete,Update subscription also
+        let permissionsForDeleteArr = ["View Subscriptions", "Create Subscriptions", "Update Subscriptions", "Delete Subscriptions"];
+        permissionsForDeleteArr.forEach(p => {
+          let index = updatedPermissionsArry.indexOf(p); // search the permission in the permisiion array
+          if (index > -1) { // if is founded
+            updatedPermissionsArry.splice(index, 1); // remove him
+          }
+        });
+      }
+      else {
+        let index = updatedPermissionsArry.indexOf(e.target.value); // search the permission in the permisiion array
+        if (index > -1) { // if is founded
+          updatedPermissionsArry.splice(index, 1); // remove him
+        }
       }
     }
     setUserData({ ...userData, permissions: updatedPermissionsArry }); // save the updated permissions in state
@@ -122,26 +142,31 @@ function EditUser_Comp(props) {
       let resp = await usersBL.updateUserData(userData); // send user data to WS
       let status = resp.data.status;
 
+      console.log(userData);
+
       if (status == "OK") { // if user is successfully created
 
-        let obj = {
-          tokenCinemaWS: CurrentUser.getCinemaWSToken(),
-          tokenSubscriptionWS: CurrentUser.getSubscribtionsWSToken(),
-          user: {
-            id: CurrentUser.getUserID(),
-            classification: userData.classification,
-            name: userData.firstName + " " + userData.lastName,
-            username: userData.username,
-            password: CurrentUser.getPassword(),
+        if (userData.id == CurrentUser.getUserID) { // If edited user is me then update the session storage data
+
+          let obj = {
             tokenCinemaWS: CurrentUser.getCinemaWSToken(),
             tokenSubscriptionWS: CurrentUser.getSubscribtionsWSToken(),
-            timeOut: userData.sessionTimeout,
-            permissions: userData.permissions
+            user: {
+              id: CurrentUser.getUserID(),
+              classification: userData.classification,
+              name: userData.firstName + " " + userData.lastName,
+              username: userData.username,
+              password: CurrentUser.getPassword(),
+              tokenCinemaWS: CurrentUser.getCinemaWSToken(),
+              tokenSubscriptionWS: CurrentUser.getSubscribtionsWSToken(),
+              timeOut: userData.sessionTimeout,
+              permissions: userData.permissions
 
+            }
           }
+          CurrentUser.saveCurrentUserData(obj);
         }
-      
-        CurrentUser.saveCurrentUserData(obj);
+
         showSnackbarAlret('User data Successfully Updated !', 'success');
         props.history.push("/menu/usersmanagement/allusers"); // redirect to login
       }
@@ -316,7 +341,7 @@ function EditUser_Comp(props) {
               onChange={e => setUserData({ ...userData, classification: e.target.value })}
 
               renderValue={(value) => {
-                
+
                 return (
                   <Box sx={{ display: "flex", gap: 1 }}>
                     <SvgIcon color="primary">
@@ -344,14 +369,14 @@ function EditUser_Comp(props) {
 
           <FormControlLabel control={<Checkbox />} label="Update Subscriptions" id="update_sub" name="UpdateSubscriptions" value="Update Subscriptions" checked={userData.permissions.includes("Update Subscriptions") ? true : false} onChange={e => premissionsHandler(e)} /><br />
 
-          <FormControlLabel control={<Checkbox />} label="View Movies" id="view_movie" name="ViewMovies" value="View Movies" checked={userData.permissions.includes("View Movies") ? true : false} onChange={(e) => premissionsHandler(e)}  />
+          <FormControlLabel control={<Checkbox />} label="View Movies" id="view_movie" name="ViewMovies" value="View Movies" checked={userData.permissions.includes("View Movies") ? true : false} onChange={(e) => premissionsHandler(e)} />
 
           <FormControlLabel control={<Checkbox />} label="Create Movies" id="create_movie" name="CreateMovies" value="Create Movies" checked={userData.permissions.includes("Create Movies") ? true : false} onChange={e => premissionsHandler(e)} /><br />
 
           <FormControlLabel control={<Checkbox />} label="Delete Movies" id="delete_movie" name="DeleteMovies" value="Delete Movies" checked={userData.permissions.includes("Delete Movies") ? true : false} onChange={e => premissionsHandler(e)} />
 
-          <FormControlLabel control={<Checkbox />} label="Update Movies" id="update_movie" name="UpdateMovies" value="Update Movies" checked={userData.permissions.includes("Update Movies") ? true : false}  onChange={e => premissionsHandler(e)} /><br />
-          
+          <FormControlLabel control={<Checkbox />} label="Update Movies" id="update_movie" name="UpdateMovies" value="Update Movies" checked={userData.permissions.includes("Update Movies") ? true : false} onChange={e => premissionsHandler(e)} /><br />
+
 
           <br /><br />
 

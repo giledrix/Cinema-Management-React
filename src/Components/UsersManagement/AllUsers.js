@@ -15,7 +15,7 @@ function AllUsers_Comp(props) {
     let classification = CurrentUser.getClassification();
 
     if (classification != "administrator") {// Prevent appropriate permissions users to naviagte User Managment page via URL
-      props.history.push('/menu');
+      props.history.push('/menu/home');
     }
     else {
       let resp = await usersBL.verifyUserToken();

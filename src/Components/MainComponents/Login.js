@@ -104,7 +104,7 @@ function Login_Comp(props) {
 
                 currentUser.saveCurrentUserData(userData); // Save all user data (include token) in session storage
 
-                props.history.push("/menu"); // redirect to menu 
+                props.history.push("/menu/home"); // redirect to menu 
                 showSnackbarAlret('Login Successfully !! ','success');
             }
             else if (userData == "Password inccorect") { // if password is inccorect show proper message 

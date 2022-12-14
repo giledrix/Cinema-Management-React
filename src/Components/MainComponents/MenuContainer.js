@@ -14,6 +14,7 @@ import GroupIcon from '@material-ui/icons/Group';
 import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { useSnackbar } from 'notistack';
+import Home_Comp from './Home';
 
 
 
@@ -61,8 +62,10 @@ function MenuContainer_Comp(props) {
 
 
     return (
-        <div>
 
+
+
+        <div>
             <BottomNavigation
                 value={value}
                 onChange={(event, newValue) => {
@@ -72,7 +75,7 @@ function MenuContainer_Comp(props) {
                 className={classes.root}
             >
 
-                <BottomNavigationAction label="Home" component={Link} to={path + "/"} icon={<HomeIcon />} />
+                <BottomNavigationAction label="Home" component={Link} to={path + "/home"} icon={<HomeIcon />} />
                 {CurrentUser.getPermission("View Movies") ? <BottomNavigationAction label="Movies" component={Link} to={path + "/movies/allMovies"} icon={<MovieIcon />} /> : null}
                 {CurrentUser.getPermission("View Subscriptions") ? <BottomNavigationAction label="Subscriptions" component={Link} to={path + "/SubscriptionManagement"} icon={<SubscriptionsIcon color="yellow" />} /> : null}
                 {CurrentUser.getClassification() == "administrator" ? <BottomNavigationAction label="Users Management" component={Link} to={path + "/usersmanagement"} icon={<GroupIcon />} /> : null}
@@ -91,9 +94,13 @@ function MenuContainer_Comp(props) {
                 <Route path={path + "/SubscriptionManagement"}>
                     <SubscriptionManagementContainer_Comp />
                 </Route>
+                <Route path={path + "/home"}>
+                    <Home_Comp />
+                </Route>
             </Switch>
 
         </div >
+
     );
 }
 

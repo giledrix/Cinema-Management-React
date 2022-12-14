@@ -59,7 +59,7 @@ function AllMovies_Comp(props) {
 
     }
     else {
-      props.history.push('/menu');
+      props.history.push('/menu/home');
     }
 
 

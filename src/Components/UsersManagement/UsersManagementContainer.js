@@ -40,7 +40,7 @@ function UsersManagementContainer_Comp(props) {
     let classification = CurrentUser.getClassification();
 
     if (classification != "administrator") {
-      props.history.push('/menu');
+      props.history.push('/menu/home');
     }
     else {
       // Check if User Token is valid(expired etc..)
