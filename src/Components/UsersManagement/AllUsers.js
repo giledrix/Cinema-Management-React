@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import usersBL from '../../BL/usersBL';
+import CurrentUser from '../../Utils/CurrentUser';
 import User_Comp from './User';
 import { withRouter } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
@@ -11,19 +12,26 @@ function AllUsers_Comp(props) {
 
   // will run on first render and get all users data from all sources and then store the data in state 
   useEffect(async () => {
+    let classification = CurrentUser.getClassification();
 
-    let resp = await usersBL.verifyUserToken();
-
-    // Check User Token
-    if (resp && resp.data.message == "jwt TokenExpiredError") {
-      sessionStorage.clear();
-      showSnackbarAlret('Session is timeout!!', 'error');
-      props.history.push('/');
+    if (classification != "administrator") {// Prevent appropriate permissions users to naviagte User Managment page via URL
+      props.history.push('/menu');
     }
     else {
-      getAllUsers();
+      let resp = await usersBL.verifyUserToken();
+
+      // Check User Token
+      if (resp && resp.data.message == "jwt TokenExpiredError") {
+        sessionStorage.clear();
+        showSnackbarAlret('Session is timeout!!', 'error');
+        props.history.push('/');
+      }
+      else {
+        getAllUsers();
+      }
+
     }
-    
+
   }, []);
 
 
