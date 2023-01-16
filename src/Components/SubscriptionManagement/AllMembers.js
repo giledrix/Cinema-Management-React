@@ -8,24 +8,22 @@ import { useSnackbar } from 'notistack';
 import Member_Comp from './Member';
 
 
-
-
 function AllMembers_Comp(props) {
 
   const [members, setMembers] = useState([]);
   const { enqueueSnackbar } = useSnackbar();
 
-  // will run on first render and get all users data from all sources and then store the data in state 
+  // Will run on first render and get all users data from all sources and then store the data in state 
   useEffect(async () => {
 
-    if (CurrentUser.getPermission("View Subscriptions")) { // Prevent appropriate permissions users to naviagte sunscriptions page via URL
+    if (CurrentUser.getPermission("View Subscriptions")) { // Prevent appropriate permissions users to navigate subscriptions page via URL
       // Check if User Token is valid(expired etc..)
       let resp = await usersBL.verifyUserToken();
 
       if (resp) {
-        if (resp.data.message == "jwt TokenExpiredError" || resp.data.message == "No token provided." || resp.data.message == "Failed to authenticate token") {
+        if (resp.data.message === "jwt TokenExpiredError" || resp.data.message === "No token provided." || resp.data.message === "Failed to authenticate token") {
           sessionStorage.clear();
-          showSnackbarAlret('Token is invalid or expired', 'error');
+          showSnackbarAlert('Token is invalid or expired', 'error');
           props.history.push('/');
         }
         else {
@@ -44,12 +42,12 @@ function AllMembers_Comp(props) {
 
 
   const getAllMembers = async () => {
-    let resp = await SubscriptionsBL.getAllMembersIncludeSubscribtions();
+    let resp = await SubscriptionsBL.getAllMembersIncludeSubscriptions();
     setMembers(resp);
   }
 
-  const showSnackbarAlret = (message, variant) => {
-    // variant could be success, error, warning, info, or default
+  const showSnackbarAlert = (message, variant) => {
+    // Variant could be success, error, warning, info, or default
     enqueueSnackbar(message, { variant: variant });
   };
 

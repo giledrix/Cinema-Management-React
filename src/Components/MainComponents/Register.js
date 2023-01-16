@@ -26,24 +26,24 @@ const useStyles = makeStyles({
 
     },
     notchedOutline: {
-        color: "red !important", // label foucus color 
+        color: "red !important", // Label focus color 
         borderWidth: "1px",
-        borderColor: "black !important" // border color when not focus
+        borderColor: "black !important" // Border color when not focus
 
     },
     cssOutlinedInput: {
-        color: "black !important", // text color when not focus
+        color: "black !important", // Text color when not focus
         "&$cssFocused $notchedOutline": {
-            borderColor: `black !important` // border color when Focused
+            borderColor: `black !important` // Border color when Focused
         }
 
     },
     cssFocused: {
-        color: "black !important" // text and label color when focued
+        color: "black !important" // Text and label color when focused
     },
 
     cssLabel: {
-        color: "black !important" // label color when out of focus
+        color: "black !important" // Label color when out of focus
     }
 
 });
@@ -60,18 +60,18 @@ function Register_Comp(props) {
         // Disable error color and text
         setUsernameError({ isInvalid: false, errorHelper: '' });
         setPassError({ isInvalid: false, errorHelper: '' });
-    }, [user.username, user.password]) // depend only in text
+    }, [user.username, user.password]) // Depend only in text
 
 
-    const showSnackbarAlret =  (message,variant) => {
-        // variant could be success, error, warning, info, or default
+    const showSnackbarAlert =  (message,variant) => {
+        // Variant could be success, error, warning, info, or default
         enqueueSnackbar(message, { variant: variant });
     };
 
     const checkInputs = async (e) => {
-        e.preventDefault(); // prevent sumbit bottun to refresh page
+        e.preventDefault(); // Prevent submit button to refresh page
         if (user.username.length < 1) {
-            setUsernameError({ isInvalid: true, errorHelper: "Please insert useranme" });
+            setUsernameError({ isInvalid: true, errorHelper: "Please insert username" });
         }
         else if (user.password.length < 4) {
             setPassError({ isInvalid: true, errorHelper: "password must be atleast 4 characters" });
@@ -80,15 +80,15 @@ function Register_Comp(props) {
             let resp = await usersBL.createNewUser(user);
             let status = resp.data;
 
-            if (status == "Password Already set") { // if user is already created
+            if (status === "Password Already set") { // if user is already created
                 setUsernameError({ isInvalid: true, errorHelper: "User is already Created (password already set)...." });
             }
-            else if (status == "User is not exist") { // if user is not registred
+            else if (status === "User is not exist") { // if user is not registered
                 setUsernameError({ isInvalid: true, errorHelper: "User is not exist" });
             }
             else {      // if password is create successfully
-                showSnackbarAlret('Password set successfully , please login..','success');
-                props.history.push("/"); // redirect to login 
+                showSnackbarAlert('Password set successfully , please login..','success');
+                props.history.push("/"); // Redirect to login 
             }
         }
 
@@ -114,7 +114,7 @@ function Register_Comp(props) {
 
                 <h2>Create an Account  </h2>
 
-                {/* when press submit call sendData funcrtion and send him the event as parameter */}
+                {/* When press submit call sendData function and send him the event as parameter */}
                 <form noValidate autoComplete="off" onSubmit={e => checkInputs(e)}>
 
                     <TextField id="outlined-basic" label="Username" variant="outlined" type="text" name="username" error={usernameError.isInvalid ? true : false} helperText={usernameError.errorHelper}

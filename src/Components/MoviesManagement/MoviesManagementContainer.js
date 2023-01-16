@@ -1,6 +1,6 @@
 
 import { MoviesDataContextProvider } from './MoviesContext'
-import { Switch, Route, Link, useRouteMatch, withRouter, useLocation } from 'react-router-dom';
+import { Switch, Route, useRouteMatch, withRouter } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import AllMovies_Comp from './AllMovies';
 import AddMovie_Comp from './AddMovie';
@@ -14,39 +14,39 @@ import Button from "@mui/material/Button";
 import { useSnackbar } from 'notistack';
 
 
-// theme for nav sub-menu 
+// Theme for nav sub-menu 
 const theme = createTheme({
   palette: {
     selected: {
       main: "#FFC107", // Button background color
-      contrastText: "#000000" //button text folor
+      contrastText: "#000000" //button text color
     },
     unSelected: {
       main: "#000000", // Button background color
-      contrastText: "#FFC107" //button text folor
+      contrastText: "#FFC107" //button text color
     },
   }
 });
 
 
 function MoviesManagementContainer_Comp(props) {
-  const [allMoviedSelected, setAllMoviesSelected] = useState(true);
+  const [allMoviesSelected, setAllMoviesSelected] = useState(true);
   const [addMovieSelected, setAddMovieSelected] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   let { path, url } = useRouteMatch();
 
-  // check if user is authenticate (run in first render AND also when location change)
+  // Check if user is authenticate (run in first render AND also when location change)
   useEffect(async () => {
 
 
-    if (CurrentUser.getPermission("View Movies")) { // Prevent appropriate permissions users to naviagte Movies page via URL
+    if (CurrentUser.getPermission("View Movies")) { // Prevent appropriate permissions users to navigate Movies page via URL
       // Check if User Token is valid(expired etc..)
       let resp = await usersBL.verifyUserToken();
 
       if (resp) {
-        if (resp.data.message == "jwt TokenExpiredError" || resp.data.message == "No token provided." || resp.data.message == "Failed to authenticate token") {
+        if (resp.data.message === "jwt TokenExpiredError" || resp.data.message === "No token provided." || resp.data.message === "Failed to authenticate token") {
           sessionStorage.clear();
-          showSnackbarAlret('Token is invalid or expired', 'error');
+          showSnackbarAlert('Token is invalid or expired', 'error');
           props.history.push('/');
         }
         else {
@@ -54,7 +54,7 @@ function MoviesManagementContainer_Comp(props) {
         }
       }
       else {
-        showSnackbarAlret('Token is invalid', 'error');
+        showSnackbarAlert('Token is invalid', 'error');
         props.history.push('/');
       }
 
@@ -78,7 +78,7 @@ function MoviesManagementContainer_Comp(props) {
     props.history.push(url + "/addMovies");
   }
 
-  const showSnackbarAlret = (message, variant) => {
+  const showSnackbarAlert = (message, variant) => {
     // variant could be success, error, warning, info, or default
     enqueueSnackbar(message, { variant: variant });
   };
@@ -100,8 +100,7 @@ function MoviesManagementContainer_Comp(props) {
 
       <ThemeProvider theme={theme}>
         <ButtonGroup disableElevation variant="contained">
-          <Button color={allMoviedSelected ? "selected" : "unSelected"} value="allMovies" onClick={() => navigateToAllMovies()}>All Movies</Button>
-          {/* <Button color={addMovieSelected ? "selected" : "unSelected"} value="addMovie" onClick={() => navigateAddMovie()} >Add Movie  </Button> */}
+          <Button color={allMoviesSelected ? "selected" : "unSelected"} value="allMovies" onClick={() => navigateToAllMovies()}>All Movies</Button>
           {CurrentUser.getPermission("Create Movies") ? <Button color={addMovieSelected ? "selected" : "unSelected"} value="addMovie" onClick={() => navigateAddMovie()} >Add Movie  </Button> : null}
         </ButtonGroup>
       </ThemeProvider>
@@ -109,6 +108,7 @@ function MoviesManagementContainer_Comp(props) {
 
       <br /><br />
 
+      {/* Using ContextAPI set main container as provider that host all other child's components(using composition) */}
       <MoviesDataContextProvider>
 
         <Switch>

@@ -60,97 +60,104 @@ const useStyles = makeStyles({
 
 
 function EditUser_Comp(props) {
-  const [userData, setUserData] = useContext(UsersContext); // use contex API
+  const [userData, setUserData] = useContext(UsersContext); // use context API
   const [firstNameError, setFirstNameError] = useState({ isInvalid: false, errorHelper: '' });
   const [lastNameError, setLastNameError] = useState({ isInvalid: false, errorHelper: '' });
-  const [useranmeError, setUsernameError] = useState({ isInvalid: false, errorHelper: '' });
+  const [usernameError, setUsernameError] = useState({ isInvalid: false, errorHelper: '' });
   const [sessionTimeOutError, setSessionTimeOutError] = useState({ isInvalid: false, errorHelper: '' });
+
   const { enqueueSnackbar } = useSnackbar();
   const classes = useStyles();
 
 
-  const premissionsHandler = (e) => {
-    let updatedPermissionsArry = userData.permissions;
+  const permissionsHandler = (e) => {
+    let updatedPermissionsArray = userData.permissions;
 
-    if (e.target.checked) { // if Permission is checked
-      updatedPermissionsArry.push(e.target.value); // add the permission to array
+    if (e.target.checked) { // If Permission is checked
+      updatedPermissionsArray.push(e.target.value); // Add the permission to array
 
-      // if the the persmissio is one of those
-      if (e.target.value == "Create Subscriptions" || e.target.value == "Update Subscriptions" || e.target.value == "Delete Subscriptions") {
-        let index = updatedPermissionsArry.indexOf("View Subscriptions"); // search if View Subscriptions already in permission array ( prevent double !!)
-        if (index < 0) { // view perm not exist in array
-          updatedPermissionsArry.push("View Subscriptions"); // Add view permisision automaticly because Create/Update/Delete permissionis is checked 
+      // If the the permission is one of those
+      if (e.target.value === "Create Subscriptions" || e.target.value === "Update Subscriptions" || e.target.value === "Delete Subscriptions") {
+        let index = updatedPermissionsArray.indexOf("View Subscriptions"); // Search if View Subscriptions already in permission array ( prevent double !!)
+        if (index < 0) { // View perm not exist in array
+          updatedPermissionsArray.push("View Subscriptions"); // Add view permission automatically because Create/Update/Delete permission's is checked 
         }
       }
-      else if (e.target.value == "Create Movies" || e.target.value == "Delete Movies" || e.target.value == "Update Movies") {
-        let index = updatedPermissionsArry.indexOf("View Movies"); // search if View Movies perm already in permission array ( prevent double !!)
-        if (index < 0) { // view movies perm not exist in array
-          updatedPermissionsArry.push("View Movies"); // Add view permisision automaticly because Create/Update/Delete permissionis is checked 
+      else if (e.target.value === "Create Movies" || e.target.value === "Delete Movies" || e.target.value === "Update Movies") {
+        let index = updatedPermissionsArray.indexOf("View Movies"); // Search if View Movies perm already in permission array ( prevent double !!)
+        if (index < 0) { // View movies perm not exist in array
+          updatedPermissionsArray.push("View Movies"); // Add view permission automatically because Create/Update/Delete permission's is checked 
         }
       }
     }
     else { // if unchecked
-      if (e.target.value == "View Movies") { // if "View Movies" then delete Create,Delete,Update also
+      if (e.target.value === "View Movies") { // if "View Movies" then delete Create,Delete,Update also
         let permissionsForDeleteArr = ["View Movies", "Create Movies", "Delete Movies", "Update Movies"];
         permissionsForDeleteArr.forEach(p => {
-          let index = updatedPermissionsArry.indexOf(p); // search the permission in the permisiion array
+          let index = updatedPermissionsArray.indexOf(p); // Search the permission in the permission array
           if (index > -1) { // if is founded
-            updatedPermissionsArry.splice(index, 1); // remove him
+            updatedPermissionsArray.splice(index, 1); // Remove him
           }
         });
       }
-      else if (e.target.value == "View Subscriptions") {// if "View Movies" then delete Create,Delete,Update subscription also
+      else if (e.target.value === "View Subscriptions") {// if "View Movies" then delete Create,Delete,Update subscription also
         let permissionsForDeleteArr = ["View Subscriptions", "Create Subscriptions", "Update Subscriptions", "Delete Subscriptions"];
         permissionsForDeleteArr.forEach(p => {
-          let index = updatedPermissionsArry.indexOf(p); // search the permission in the permisiion array
+          let index = updatedPermissionsArray.indexOf(p); // Search the permission in the permission array
           if (index > -1) { // if is founded
-            updatedPermissionsArry.splice(index, 1); // remove him
+            updatedPermissionsArray.splice(index, 1); // Remove him
           }
         });
       }
       else {
-        let index = updatedPermissionsArry.indexOf(e.target.value); // search the permission in the permisiion array
+        let index = updatedPermissionsArray.indexOf(e.target.value); // Search the permission in the permission array
         if (index > -1) { // if is founded
-          updatedPermissionsArry.splice(index, 1); // remove him
+          updatedPermissionsArray.splice(index, 1); // Remove him
         }
       }
     }
-    setUserData({ ...userData, permissions: updatedPermissionsArry }); // save the updated permissions in state
+    setUserData({ ...userData, permissions: updatedPermissionsArray }); // Save the updated permissions in state
   }
 
   const checkInputs = async (e) => {
-    e.preventDefault(); // prevent sumbit bottun to refresh page
+    e.preventDefault(); // Prevent submit button to refresh page
 
 
     if (userData.firstName.length < 2) {
-      alert("First name must be atleast 2 characters")
-      // setPassError({ isInvalid: true, errorHelper: "First name must be atleast 2 characters" });
+      setFirstNameError({ isInvalid: true, errorHelper: "First name must be atleast 2 characters" });
+      setLastNameError({ isInvalid: false, errorHelper: "" });
+      setUsernameError({ isInvalid: false, errorHelper: "" });
+      setSessionTimeOutError({ isInvalid: false, errorHelper: "" });
     }
     else if (userData.lastName.length < 2) {
-      alert("Last name must be atleast 2 characters")
-      // setPassError({ isInvalid: true, errorHelper: "Last name must be atleast 2 characters" });
+      setLastNameError({ isInvalid: true, errorHelper: "Last name must be atleast 2 characters" });
+      setFirstNameError({ isInvalid: false, errorHelper: "" });
+      setUsernameError({ isInvalid: false, errorHelper: "" });
+      setSessionTimeOutError({ isInvalid: false, errorHelper: "" });
     }
     else if (userData.username.length < 1) {
-      alert("Please insert useranme")
-      // setUsernameError({ isInvalid: true, errorHelper: "Please insert useranme" });
+      setUsernameError({ isInvalid: true, errorHelper: "Please insert username" });
+      setLastNameError({ isInvalid: false, errorHelper: "" });
+      setFirstNameError({ isInvalid: false, errorHelper: "" });
+      setSessionTimeOutError({ isInvalid: false, errorHelper: "" });
     }
-    else if (userData.sessionTimeout == 0) {
-      alert("Please set session timeout value");
-
+    else if (userData.sessionTimeout === 0) {
+      setSessionTimeOutError({ isInvalid: true, errorHelper: "Please set session timeout value" });
+      setLastNameError({ isInvalid: true, errorHelper: "" });
+      setFirstNameError({ isInvalid: false, errorHelper: "" });
+      setUsernameError({ isInvalid: false, errorHelper: "" });
     }
-    else { // all inputs are OK
-      let resp = await usersBL.updateUserData(userData); // send user data to WS
+    else { // All inputs are OK
+      let resp = await usersBL.updateUserData(userData); // Send user data to WS
       let status = resp.data.status;
 
-      console.log(userData);
+      if (status === "OK") { // if user is successfully created
 
-      if (status == "OK") { // if user is successfully created
-
-        if (userData.id == CurrentUser.getUserID) { // If edited user is me then update the session storage data
+        if (userData.id === CurrentUser.getUserID()) { // If edited user is me then update the session storage data
 
           let obj = {
             tokenCinemaWS: CurrentUser.getCinemaWSToken(),
-            tokenSubscriptionWS: CurrentUser.getSubscribtionsWSToken(),
+            tokenSubscriptionWS: CurrentUser.getSubscriptionsWSToken(),
             user: {
               id: CurrentUser.getUserID(),
               classification: userData.classification,
@@ -158,26 +165,27 @@ function EditUser_Comp(props) {
               username: userData.username,
               password: CurrentUser.getPassword(),
               tokenCinemaWS: CurrentUser.getCinemaWSToken(),
-              tokenSubscriptionWS: CurrentUser.getSubscribtionsWSToken(),
+              tokenSubscriptionWS: CurrentUser.getSubscriptionsWSToken(),
               timeOut: userData.sessionTimeout,
               permissions: userData.permissions
+
 
             }
           }
           CurrentUser.saveCurrentUserData(obj);
         }
 
-        showSnackbarAlret('User data Successfully Updated !', 'success');
-        props.history.push("/menu/usersmanagement/allusers"); // redirect to login
+        showSnackbarAlert('User data Successfully Updated !', 'success');
+        props.history.push("/menu/usersmanagement/allusers"); // Redirect to login
       }
       else {      // if creating is failed 
-        showSnackbarAlret('User data updating is failed ! , please try again...', 'success');
+        showSnackbarAlert('User data updating is failed ! , please try again...', 'success');
       }
     }
 
   }
 
-  const showSnackbarAlret = (message, variant) => {
+  const showSnackbarAlert = (message, variant) => {
     // variant could be success, error, warning, info, or default
     enqueueSnackbar(message, { variant: variant });
   };
@@ -272,8 +280,8 @@ function EditUser_Comp(props) {
             type="text"
             name="username"
             value={userData.username}
-            error={useranmeError.isInvalid ? true : false}
-            helperText={useranmeError.errorHelper}
+            error={usernameError.isInvalid ? true : false}
+            helperText={usernameError.errorHelper}
             onChange={e => setUserData({ ...userData, username: e.target.value })}
             InputLabelProps={{
               classes: {
@@ -359,23 +367,23 @@ function EditUser_Comp(props) {
           </FormControl>
 
 
-          <h3> Permissons: </h3>
+          <h3> Permissions: </h3>
 
-          <FormControlLabel control={<Checkbox />} label="View Subscriptions" id="view_subscriptions" name="ViewSubscriptions" value="View Subscriptions" checked={userData.permissions.includes("View Subscriptions") ? true : false} onChange={(e) => premissionsHandler(e)} />
+          <FormControlLabel control={<Checkbox />} label="View Subscriptions" id="view_subscriptions" name="ViewSubscriptions" value="View Subscriptions" checked={userData.permissions.includes("View Subscriptions") ? true : false} onChange={(e) => permissionsHandler(e)} />
 
-          <FormControlLabel control={<Checkbox />} label="Create Subscriptions" id="create_sub" name="CreateSubscriptions" value="Create Subscriptions" checked={userData.permissions.includes("Create Subscriptions") ? true : false} onChange={e => premissionsHandler(e)} /><br />
+          <FormControlLabel control={<Checkbox />} label="Create Subscriptions" id="create_sub" name="CreateSubscriptions" value="Create Subscriptions" checked={userData.permissions.includes("Create Subscriptions") ? true : false} onChange={e => permissionsHandler(e)} /><br />
 
-          <FormControlLabel control={<Checkbox />} label="Delete Subscriptions" id="delete_sub" name="DeleteSubscriptions" value="Delete Subscriptions" checked={userData.permissions.includes("Delete Subscriptions") ? true : false} onChange={e => premissionsHandler(e)} />
+          <FormControlLabel control={<Checkbox />} label="Delete Subscriptions" id="delete_sub" name="DeleteSubscriptions" value="Delete Subscriptions" checked={userData.permissions.includes("Delete Subscriptions") ? true : false} onChange={e => permissionsHandler(e)} />
 
-          <FormControlLabel control={<Checkbox />} label="Update Subscriptions" id="update_sub" name="UpdateSubscriptions" value="Update Subscriptions" checked={userData.permissions.includes("Update Subscriptions") ? true : false} onChange={e => premissionsHandler(e)} /><br />
+          <FormControlLabel control={<Checkbox />} label="Update Subscriptions" id="update_sub" name="UpdateSubscriptions" value="Update Subscriptions" checked={userData.permissions.includes("Update Subscriptions") ? true : false} onChange={e => permissionsHandler(e)} /><br />
 
-          <FormControlLabel control={<Checkbox />} label="View Movies" id="view_movie" name="ViewMovies" value="View Movies" checked={userData.permissions.includes("View Movies") ? true : false} onChange={(e) => premissionsHandler(e)} />
+          <FormControlLabel control={<Checkbox />} label="View Movies" id="view_movie" name="ViewMovies" value="View Movies" checked={userData.permissions.includes("View Movies") ? true : false} onChange={(e) => permissionsHandler(e)} />
 
-          <FormControlLabel control={<Checkbox />} label="Create Movies" id="create_movie" name="CreateMovies" value="Create Movies" checked={userData.permissions.includes("Create Movies") ? true : false} onChange={e => premissionsHandler(e)} /><br />
+          <FormControlLabel control={<Checkbox />} label="Create Movies" id="create_movie" name="CreateMovies" value="Create Movies" checked={userData.permissions.includes("Create Movies") ? true : false} onChange={e => permissionsHandler(e)} /><br />
 
-          <FormControlLabel control={<Checkbox />} label="Delete Movies" id="delete_movie" name="DeleteMovies" value="Delete Movies" checked={userData.permissions.includes("Delete Movies") ? true : false} onChange={e => premissionsHandler(e)} />
+          <FormControlLabel control={<Checkbox />} label="Delete Movies" id="delete_movie" name="DeleteMovies" value="Delete Movies" checked={userData.permissions.includes("Delete Movies") ? true : false} onChange={e => permissionsHandler(e)} />
 
-          <FormControlLabel control={<Checkbox />} label="Update Movies" id="update_movie" name="UpdateMovies" value="Update Movies" checked={userData.permissions.includes("Update Movies") ? true : false} onChange={e => premissionsHandler(e)} /><br />
+          <FormControlLabel control={<Checkbox />} label="Update Movies" id="update_movie" name="UpdateMovies" value="Update Movies" checked={userData.permissions.includes("Update Movies") ? true : false} onChange={e => permissionsHandler(e)} /><br />
 
 
           <br /><br />

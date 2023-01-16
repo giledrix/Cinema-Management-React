@@ -1,5 +1,5 @@
 import { UsersDataContextProvider } from './Context'
-import { Switch, Route, Link, useRouteMatch, withRouter, useLocation } from 'react-router-dom';
+import { Switch, Route, useRouteMatch, withRouter } from 'react-router-dom';
 import AddUser_Comp from './AddUser';
 import AllUsers_Comp from './AllUsers';
 import EditUser_Comp from './EditUser';
@@ -12,16 +12,16 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from "@mui/material/Button";
 import { useSnackbar } from 'notistack';
 
-// theme for nav sub-menu
+// Theme for nav sub-menu
 const theme = createTheme({
   palette: {
     selected: {
       main: "#FFC107", // Button background color
-      contrastText: "#000000" //button text folor
+      contrastText: "#000000" //button text color
     },
     unSelected: {
       main: "#000000", // Button background color
-      contrastText: "#FFC107" //button text folor
+      contrastText: "#FFC107" //button text color
     },
   }
 });
@@ -33,13 +33,13 @@ function UsersManagementContainer_Comp(props) {
   let { path, url } = useRouteMatch();
   const { enqueueSnackbar } = useSnackbar();
 
-  // check if user is authenticate (run in first render AND also when location change)
+  // Check if user is authenticate (run in first render AND also when location change)
   useEffect(async () => {
 
-    // Prevent appropriate permissions users to naviagte User Managment page via URL
+    // Prevent appropriate permissions users to navigate User Management page via URL
     let classification = CurrentUser.getClassification();
 
-    if (classification != "administrator") {
+    if (classification !== "administrator") {
       props.history.push('/menu/home');
     }
     else {
@@ -47,9 +47,9 @@ function UsersManagementContainer_Comp(props) {
       let resp = await usersBL.verifyUserToken();
 
       if (resp) {
-        if (resp.data.message == "jwt TokenExpiredError" || resp.data.message == "No token provided." || resp.data.message == "Failed to authenticate token") {
+        if (resp.data.message === "jwt TokenExpiredError" || resp.data.message === "No token provided." || resp.data.message === "Failed to authenticate token") {
           sessionStorage.clear();
-          showSnackbarAlret('Token is invalid or expired', 'error');
+          showSnackbarAlert('Token is invalid or expired', 'error');
           props.history.push('/');
         }
         else {
@@ -57,7 +57,7 @@ function UsersManagementContainer_Comp(props) {
         }
       }
       else {
-        showSnackbarAlret('Token is invalid', 'error');
+        showSnackbarAlert('Token is invalid', 'error');
         props.history.push('/');
       }
     }
@@ -77,8 +77,8 @@ function UsersManagementContainer_Comp(props) {
     props.history.push(url + "/adduser");
   }
 
-  const showSnackbarAlret = (message, variant) => {
-    // variant could be success, error, warning, info, or default
+  const showSnackbarAlert = (message, variant) => {
+    // Variant could be success, error, warning, info, or default
     enqueueSnackbar(message, { variant: variant });
   };
 
@@ -103,6 +103,7 @@ function UsersManagementContainer_Comp(props) {
       <br /><br /><br />
 
 
+      {/* Using ContextAPI set main container as provider that host all other child's components(using composition) */}
       <UsersDataContextProvider>
 
         <Switch>

@@ -28,28 +28,28 @@ function AllMovies_Comp(props) {
   const [movies, setMovies] = useState([]);
   const [searchInput, setSearchInput] = useState('');
   const { enqueueSnackbar } = useSnackbar();
-  let { id } = useParams(); // use for get paprameter from url
+  let { id } = useParams(); // Use for get parameter from url
 
 
-  // will run on first render and get all Movies data from WS and then store it in state 
+  // Will run on first render and get all Movies data from WS and then store it in state 
   useEffect(async () => {
 
-    if (CurrentUser.getPermission("View Movies")) { // Prevent appropriate permissions users to naviagte Movies page via URL
+    if (CurrentUser.getPermission("View Movies")) { // Prevent appropriate permissions users to navigate Movies page via URL
       // Check if user token expired
       let resp = await usersBL.verifyUserToken();
-      if (resp && resp.data.message == "jwt TokenExpiredError") {
+      if (resp && resp.data.message === "jwt TokenExpiredError") {
         sessionStorage.clear();
         props.history.push('/');
       }
       else {
-        let userToken = await CurrentUser.getSubscribtionsWSToken();
+        let userToken = await CurrentUser.getSubscriptionsWSToken();
 
-        if (userToken == undefined) {
+        if (userToken === undefined) {
           props.history.push('/');
         }
         else {
           if (id) {
-            searchMovie(id); // present spesific movie (press on movie name in subscribtion)
+            searchMovie(id); // Present specific movie (press on movie name in subscription)
           }
           else {
             getAllMovies();
@@ -66,20 +66,20 @@ function AllMovies_Comp(props) {
   }, []);
 
   const getAllMovies = async () => {
-    let allMoviesArr = await moviesBL.getAllMoviesAndtheirSubscriptions();
+    let allMoviesArr = await moviesBL.getAllMoviesAndTheirSubscriptions();
     setMovies(allMoviesArr);
   }
 
   const searchMovie = async (id) => {
-    let allMoviesArr = await moviesBL.getAllMoviesAndtheirSubscriptions();
+    let allMoviesArr = await moviesBL.getAllMoviesAndTheirSubscriptions();
 
     if (allMoviesArr) {
       let searchResult
       if (id) {
-        searchResult = allMoviesArr.filter(movie => movie.Name.includes(id)); // present movie 
+        searchResult = allMoviesArr.filter(movie => movie.Name.includes(id)); // Present movie 
       }
       else {
-        searchResult = allMoviesArr.filter(movie => movie.Name.includes(searchInput)); // check if movie name include the search input
+        searchResult = allMoviesArr.filter(movie => movie.Name.includes(searchInput)); // Check if movie name include the search input
       }
       setMovies(searchResult);
     }
@@ -87,16 +87,10 @@ function AllMovies_Comp(props) {
 
   }
 
-  const showSnackbarAlret = (message, variant) => {
-    // variant could be success, error, warning, info, or default
-    enqueueSnackbar(message, { variant: variant });
-  };
 
 
   return (
     <div >
-
-
 
       <input id="search" type="text" placeholder="Search movie.." onChange={e => setSearchInput(e.target.value)} /><input type="button" id="searchBtn" value="Search" onClick={() => searchMovie()} /> <br /><br />
 
@@ -120,9 +114,6 @@ function AllMovies_Comp(props) {
                 </Grid>)
 
             })
-
-
-
           }
         </Grid>
       </Box>

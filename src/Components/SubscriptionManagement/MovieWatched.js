@@ -4,7 +4,6 @@ import NewSubscription_Comp from './NewSubscription';
 import { useState } from 'react';
 import { Link,withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const useStyles = makeStyles({
     root: {

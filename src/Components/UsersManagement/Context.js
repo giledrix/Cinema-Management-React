@@ -1,22 +1,22 @@
 import { createContext, useState } from "react";
 
-//create my contect
+//create my Context
 export const UsersContext = createContext();
 
 export const UsersDataContextProvider = props => {
 
-    // here i define in state all the data i want to share with every components
+    // Define in state all the data i want to share with every components
     const [userData, setUserData] = useState({ id: '', username: '', firstName: '', lastName: '', sessionTimeout: 0, classification: "user", permissions: [] });
 
     return (
-        // pass pointer to counter and setCounder to all components
+        // Passing pointer to userData and setUserData to all components
         <UsersContext.Provider value={[userData, setUserData]}>
 
-            {/* // זה כאילו 2 הקומפוננטים נמצאים פה ובגלל זה הם יכולים לשמשתמש באותו סטייט */}
+            {/* Its like all the other child components is here , because of that they all can access to same state  */}
             {props.children}
 
-            {/* בזכות הקומוזישן בזן ריצה 2 הקומפוננטות מגיעות לפה ולכן לשניהם 
-            יש גישה לקאונטר ולסט קאונטר שהמידע הזזה מחלחל בכל ההיררכיה ולכן כל אחד יכל לשנות את הקאונטר ולהציג אותו */}
+            {/* Thanks for "Composition" , in run-time all the child components locate here , and thats the reason they all
+            can get and set data in the same state (the data is passed in the entire hierarchy, and then its possible to change him or present him.) */}
         </UsersContext.Provider>
     )
 }

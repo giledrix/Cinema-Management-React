@@ -54,7 +54,7 @@ const useStyles = makeStyles({
 
 
 function AddMovie_Comp(props) {
-    const [movie, setMovie] = useState({ name: '', genres: '', imgUrl: '', premired: new Date() });
+    const [movie, setMovie] = useState({ name: '', genres: '', imgUrl: '', premiered: new Date() });
     const [nameError, setNameError] = useState({ isInvalid: false, errorHelper: '' });
     const [genresError, setGenres] = useState({ isInvalid: false, errorHelper: '' });
     const [urlError, setUrlError] = useState({ isInvalid: false, errorHelper: '' });
@@ -62,21 +62,21 @@ function AddMovie_Comp(props) {
     const { enqueueSnackbar } = useSnackbar();
     const classes = useStyles();
 
-    // will run on first render and when imgUrl is change
+    // Will run on first render and when imgUrl is change
     useEffect(() => {
         imageExists(movie.imgUrl) ? setShowPoster(true) : setShowPoster(false) 
     }, [movie.imgUrl]);
 
-    const showSnackbarAlret = (message, variant) => {
+    const showSnackbarAlert = (message, variant) => {
         // variant could be success, error, warning, info, or default
         enqueueSnackbar(message, { variant: variant });
     };
 
 
     const checkInputs = async (e) => {
-        e.preventDefault(); // prevent sumbit bottun to refresh page
+        e.preventDefault(); // Prevent submit button to refresh page
 
-        // check if string is URL
+        // Check if string is URL
         let pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
             '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
             '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
@@ -85,7 +85,7 @@ function AddMovie_Comp(props) {
             '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
 
 
-        if (movie.name.length == 0) {
+        if (movie.name.length === 0) {
             setNameError({ isInvalid: true, errorHelper: "Movie Name must be filled" });
             setGenres({ isInvalid: false, errorHelper: "" });
             setUrlError({ isInvalid: false, errorHelper: "" });
@@ -95,7 +95,7 @@ function AddMovie_Comp(props) {
             setGenres({ isInvalid: false, errorHelper: "" });
             setUrlError({ isInvalid: false, errorHelper: "" });
         }
-        else if (movie.genres.length == 0) {
+        else if (movie.genres.length === 0) {
             setGenres({ isInvalid: true, errorHelper: "Genres must be filled" });
             setNameError({ isInvalid: false, errorHelper: "" });
             setUrlError({ isInvalid: false, errorHelper: "" });
@@ -105,7 +105,7 @@ function AddMovie_Comp(props) {
             setNameError({ isInvalid: false, errorHelper: "" });
             setUrlError({ isInvalid: false, errorHelper: "" });
         }
-        else if (movie.imgUrl.length == 0) {
+        else if (movie.imgUrl.length === 0) {
             setGenres({ isInvalid: true, errorHelper: "" });
             setUrlError({ isInvalid: true, errorHelper: "Image URL must be filled" });
             setNameError({ isInvalid: false, errorHelper: "" });
@@ -115,26 +115,26 @@ function AddMovie_Comp(props) {
             setNameError({ isInvalid: false, errorHelper: "" });
             setGenres({ isInvalid: false, errorHelper: "" });
         }
-        else if (movie.premired == 0) {
+        else if (movie.premiered === 0) {
             alert("Date must be set");
 
         }
-        else { // all inputs are OK
+        else { // All inputs are OK
 
             let resp;
             try {
-                resp = await moviesBL.addMovie(movie); // send user data to WS
+                resp = await moviesBL.addMovie(movie); // Send user data to WS
             }
             catch (err) {
                 console.log(err);
             }
 
-            if (resp == "Movie is Created") { // if movie is created
-                showSnackbarAlret('Movie is Created !!', 'success');
-                props.history.push("/menu/movies/allMovies"); // redirect to all movies
+            if (resp === "Movie is Created") { // if movie is created
+                showSnackbarAlert('Movie is Created !!', 'success');
+                props.history.push("/menu/movies/allMovies"); // Redirect to all movies
             }
             else {
-                showSnackbarAlret('Failed to create a movie..', 'error');
+                showSnackbarAlert('Failed to create a movie..', 'error');
             }
 
         }
@@ -167,7 +167,7 @@ function AddMovie_Comp(props) {
 
             <Box id="formBox"
                 sx={{
-                    '& .MuiTextField-root': { m: 1, width: '25ch' }, // gapping between elements (TextField)
+                    '& .MuiTextField-root': { m: 1, width: '25ch' }, // Gapping between elements (TextField)
                 }}
 
             >
@@ -274,11 +274,11 @@ function AddMovie_Comp(props) {
 
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DesktopDatePicker
-                            label="Premired"
-                            value={movie.premired}
+                            label="Premiered"
+                            value={movie.premiered}
                             minDate={new Date('2021-01-01')}
                             onChange={(newValue) => {
-                                setMovie({ ...movie, premired: newValue })
+                                setMovie({ ...movie, premiered: newValue })
                             }}
                             renderInput={(params) => <TextField {...params} />}
                         />

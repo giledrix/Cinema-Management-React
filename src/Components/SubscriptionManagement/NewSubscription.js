@@ -45,7 +45,7 @@ function NewSubscription_Comp(props) {
     }, []);
 
     const checkInputs = async (e) => {
-        e.preventDefault(); // prevent sumbit bottun to refresh page
+        e.preventDefault(); // Prevent submit button to refresh page
 
 
         if (subscription.movie.length < 1) {
@@ -54,22 +54,22 @@ function NewSubscription_Comp(props) {
         else if (subscription.date == null) {
             alert("Select date")
         }
-        else { // all inputs are OK
-            let resp = await SubscriptionsBL.createSubscription(subscription, props.memberID); // send user data to WS
+        else { // All inputs are OK
+            let resp = await SubscriptionsBL.createSubscription(subscription, props.memberID); // Send member data to WS
             let status = resp.data;
 
-            if (status == "Subscribtion is Updated" || status == "The subscription was successfully registered") {
+            if (status === "Subscription is Updated" || status === "The subscription was successfully registered") {
                 memberData.getAllMembersCallBack();
-                showSnackbarAlret('Subscription Successfully Created !!', 'success');
+                showSnackbarAlert('Subscription Successfully Created !!', 'success');
             }
             else {
-                showSnackbarAlret('Subscription is Failed ..', 'error');
+                showSnackbarAlert('Subscription is Failed ..', 'error');
             }
         }
     }
 
-    const showSnackbarAlret = (message, variant) => {
-        // variant could be success, error, warning, info, or default
+    const showSnackbarAlert = (message, variant) => {
+        // Variant could be success, error, warning, info, or default
         enqueueSnackbar(message, { variant: variant });
     };
 

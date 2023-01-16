@@ -27,24 +27,24 @@ const useStyles = makeStyles({
         background: 'linear-gradient(45deg, #1c1b1b 30%, #000000 90%)',
     },
     notchedOutline: {
-        color: "red !important", // label foucus color 
+        color: "red !important", // Label focus color 
         borderWidth: "1px",
-        borderColor: "black !important" // border color when not focus
+        borderColor: "black !important" // Border color when not focus
 
     },
     cssOutlinedInput: {
-        color: "black !important", // text color when not focus
+        color: "black !important", // Text color when not focus
         "&$cssFocused $notchedOutline": {
-            borderColor: `black !important` // border color when Focused
+            borderColor: `black !important` // Border color when Focused
         }
 
     },
     cssFocused: {
-        color: "black !important" // text and label color when focued
+        color: "black !important" // Text and label color when focused
     },
 
     cssLabel: {
-        color: "black !important" // label color when out of focus
+        color: "black !important" // Label color when out of focus
     }
 });
 
@@ -57,23 +57,23 @@ function AddMember_Comp(props) {
     const { enqueueSnackbar } = useSnackbar();
     const classes = useStyles();
 
-    // will run on first render and get all users data from all sources and then store the data in state 
+    // Will run on first render and get all users data from all sources and then store the data in state 
     useEffect(async () => {
         let resp = await usersBL.verifyUserToken();
 
         // Check if user token expired
-        if (resp && resp.data.message == "jwt TokenExpiredError") {
+        if (resp && resp.data.message === "jwt TokenExpiredError") {
             sessionStorage.clear();
-            showSnackbarAlret('Session is timeout !!', 'error');
+            showSnackbarAlert('Session is timeout !!', 'error');
             props.history.push('/');
         }
     }, []);
 
     const checkInputs = async (e) => {
-        e.preventDefault(); // prevent sumbit button to refresh the page
+        e.preventDefault(); // Prevent submit button to refresh the page
 
 
-        if (member.Name.length == 0) {
+        if (member.Name.length === 0) {
             setNameError({ isInvalid: true, errorHelper: "Member Name must be filled" });
             setEmailError({ isInvalid: false, errorHelper: "" });
             setCityError({ isInvalid: false, errorHelper: "" });
@@ -84,7 +84,7 @@ function AddMember_Comp(props) {
             setCityError({ isInvalid: false, errorHelper: "" });
 
         }
-        else if (member.Email.length == 0) {
+        else if (member.Email.length === 0) {
             setNameError({ isInvalid: false, errorHelper: "" });
             setEmailError({ isInvalid: true, errorHelper: "Email must be filled" });
             setCityError({ isInvalid: false, errorHelper: "" });
@@ -96,7 +96,7 @@ function AddMember_Comp(props) {
             setCityError({ isInvalid: false, errorHelper: "" });
 
         }
-        else if (member.City.length == 0) {
+        else if (member.City.length === 0) {
             setNameError({ isInvalid: false, errorHelper: "" });
             setEmailError({ isInvalid: false, errorHelper: "" });
             setCityError({ isInvalid: true, errorHelper: "City must be filled" });
@@ -106,31 +106,31 @@ function AddMember_Comp(props) {
             setEmailError({ isInvalid: false, errorHelper: "" });
             setCityError({ isInvalid: true, errorHelper: "City must beat least 2 char" });
         }
-        else { // all inputs are OK
+        else { // All inputs are OK
 
             let resp;
             try {
-                resp = await SubscriptionsBL.addMember(member) // send member data to WS
+                resp = await SubscriptionsBL.addMember(member) // Send member data to WS
             }
             catch (err) {
                 console.log(err);
             }
 
-            if (resp.data == "Member is Created") { // if movie is created
-                showSnackbarAlret('Member is Created !!', 'success');
-                props.history.push("/menu/SubscriptionManagement/allMembers"); // redirect to all movies
+            if (resp.data === "Member is Created") { // if movie is created
+                showSnackbarAlert('Member is Created !!', 'success');
+                props.history.push("/menu/SubscriptionManagement/allMembers"); // Redirect to all movies
             }
-            else if (resp == "Member is already exists") {
-                showSnackbarAlret('Member is already exists..', 'error');
+            else if (resp === "Member is already exists") {
+                showSnackbarAlert('Member is already exists..', 'error');
             }
             else {
-                showSnackbarAlret('Failed create Member..', 'error');
+                showSnackbarAlert('Failed create Member..', 'error');
             }
         }
     }
 
-    const showSnackbarAlret = (message, variant) => {
-        // variant could be success, error, warning, info, or default
+    const showSnackbarAlert = (message, variant) => {
+        // Variant could be success, error, warning, info, or default
         enqueueSnackbar(message, { variant: variant });
     };
 

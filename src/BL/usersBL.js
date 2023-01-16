@@ -11,17 +11,17 @@ const loginValidation = (user) => {
 }
 
 const verifyUserToken = () => {
-    const userToken = CurrentUser.getSubscribtionsWSToken();
-  
+    const userToken = CurrentUser.getSubscriptionsWSToken();
+
     if (userToken) {
         return axios.get(url + "/tokenverify", {
             headers: { 'x-access-token': userToken }
         });
     }
-    else{
+    else {
         return;
     }
-    
+
 }
 
 const createNewUser = (user) => {
@@ -38,7 +38,7 @@ const adminCreateNewUser = (user) => {
 const getAllUsersDataFromAllSources = () => {
 
     return axios.get(url + "/getAllUserData", {
-        headers: { 'x-access-token': CurrentUser.getSubscribtionsWSToken() }
+        headers: { 'x-access-token': CurrentUser.getSubscriptionsWSToken() }
     });
 }
 

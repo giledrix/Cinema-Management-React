@@ -14,17 +14,18 @@ function AllUsers_Comp(props) {
   useEffect(async () => {
     let classification = CurrentUser.getClassification();
 
-    if (classification != "administrator") {// Prevent appropriate permissions users to naviagte User Managment page via URL
+    if (classification != "administrator") {// Prevent appropriate permissions users to navigate User Management page via URL
       props.history.push('/menu/home');
     }
     else {
       let resp = await usersBL.verifyUserToken();
 
       // Check User Token
-      if (resp && resp.data.message == "jwt TokenExpiredError") {
+      if (resp && resp.data.message === "jwt TokenExpiredError") {
         sessionStorage.clear();
-        showSnackbarAlret('Session is timeout!!', 'error');
+        showSnackbarAlert('Session is timeout!!', 'error');
         props.history.push('/');
+        
       }
       else {
         getAllUsers();
@@ -42,7 +43,7 @@ function AllUsers_Comp(props) {
 
   }
 
-  const showSnackbarAlret = (message, variant) => {
+  const showSnackbarAlert = (message, variant) => {
     // variant could be success, error, warning, info, or default
     enqueueSnackbar(message, { variant: variant });
   };

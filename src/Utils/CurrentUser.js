@@ -1,7 +1,5 @@
-import usersBL from "../BL/usersBL";
-
 const saveCurrentUserData = (userData) => {
-    sessionStorage.setItem('currentUser', JSON.stringify(userData)); // save all user data in session storage
+    sessionStorage.setItem('currentUser', JSON.stringify(userData)); // Save all user data in session storage
 }
 
 const getName = () => {
@@ -56,7 +54,7 @@ const getCinemaWSToken = () => {
     }
 }
 
-const getSubscribtionsWSToken = () => {
+const getSubscriptionsWSToken = () => {
     if (sessionStorage.currentUser) {
         return JSON.parse(sessionStorage.currentUser).user.tokenSubscriptionWS;
     }
@@ -70,4 +68,4 @@ const getSessionTimeout = () => {
 
 
 
-export default { saveCurrentUserData, getName, getUserID, getUsername, getPassword, getClassification, getCinemaWSToken, getSubscribtionsWSToken, getSessionTimeout, getPermissions, getPermission }
+export default { saveCurrentUserData, getName, getUserID, getUsername, getPassword, getClassification, getCinemaWSToken, getSubscriptionsWSToken: getSubscriptionsWSToken, getSessionTimeout, getPermissions, getPermission }

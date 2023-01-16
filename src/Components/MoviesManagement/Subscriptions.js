@@ -6,12 +6,12 @@ function Subscriptions_Comp(props) {
 
     return (
         <div>
-            <fieldset id="subscriptions_frame" style = {{borderColor: 'black'}}>
+            <fieldset id="subscriptions_frame" style={{ borderColor: 'black' }}>
                 <b>Subscriptions Watched : </b>
 
                 <ul>
                     {
-                        props.movieData.Watched.map((w,index) => {
+                        props.movieData.Watched.map((w, index) => {
                             return <li key={index}><Link to={"/menu/SubscriptionManagement/allMembers"} >{w.memberName}</Link> , {w.date} </li>
                         })
                     }

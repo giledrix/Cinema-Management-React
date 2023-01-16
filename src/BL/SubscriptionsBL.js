@@ -7,8 +7,7 @@ const subscriptionsWS_url = "http://localhost:8000/api/subscriptions"
 const membersWS_url = "http://localhost:8000/api/members"
 
 
-
-const getAllMembersIncludeSubscribtions = async function () {
+const getAllMembersIncludeSubscriptions = async function () {
 
     let respFromMoviesWS, respFromMemberWS, respFromSubscriptionsWS
     let allMoviesArr, allMembersArr, allSubscriptionsArr;
@@ -16,17 +15,17 @@ const getAllMembersIncludeSubscribtions = async function () {
     try {
 
         respFromMemberWS = await axios.get(membersWS_url, {
-            headers: { 'x-access-token': CurrentUser.getSubscribtionsWSToken() }
+            headers: { 'x-access-token': CurrentUser.getSubscriptionsWSToken() }
         });
         allMembersArr = respFromMemberWS.data;
 
         respFromMoviesWS = await axios.get(moviesWS_url, {
-            headers: { 'x-access-token': CurrentUser.getSubscribtionsWSToken() }
+            headers: { 'x-access-token': CurrentUser.getSubscriptionsWSToken() }
         });
         allMoviesArr = respFromMoviesWS.data.movies;
 
         respFromSubscriptionsWS = await axios.get(subscriptionsWS_url, {
-            headers: { 'x-access-token': CurrentUser.getSubscribtionsWSToken() }
+            headers: { 'x-access-token': CurrentUser.getSubscriptionsWSToken() }
         });
         allSubscriptionsArr = respFromSubscriptionsWS.data;
     }
@@ -34,7 +33,7 @@ const getAllMembersIncludeSubscribtions = async function () {
         console.log(err);
     }
 
-    // data shaping from 3 sources (movie WS,Member WS , SubscriptionsWS)
+    // Data shaping from 3 sources (movie WS,Member WS , SubscriptionsWS)
     let allMembersWithSubs = [];
 
     allMembersArr.forEach(member => {
@@ -49,7 +48,7 @@ const getAllMembersIncludeSubscribtions = async function () {
 
             subscription.Movies.forEach(movie => {
 
-                let movie1 = allMoviesArr.find(m => m._id === movie.movieID); // for movie name
+                let movie1 = allMoviesArr.find(m => m._id === movie.movieID); // For getting the movie name
 
                 let movieObj = {
                     movieID: movie.movieID,
@@ -68,7 +67,7 @@ const getAllMembersIncludeSubscribtions = async function () {
                 Name: member.Name,
                 Email: member.Email,
                 City: member.City,
-                Subscribtions:
+                Subscriptions:
                 {
                     subscriptionsMovies: moviesWatches,
                     moviesDropDown: movies
@@ -84,7 +83,7 @@ const getAllMembersIncludeSubscribtions = async function () {
                 Name: member.Name,
                 Email: member.Email,
                 City: member.City,
-                Subscribtions:
+                Subscriptions:
                 {
                     subscriptionsMovies: moviesWatches,
                     moviesDropDown: allMoviesArr
@@ -102,67 +101,67 @@ const getAllMembersIncludeSubscribtions = async function () {
 
 const createSubscription = async function (input, memberID) {
 
-    let respFromSubscritionWS;
+    let respFromSubscriptionWS;
 
     try {
-        // get all subscriptions from web service database
-        respFromSubscritionWS = await axios.get(subscriptionsWS_url, {
-            headers: { 'x-access-token': CurrentUser.getSubscribtionsWSToken() }
+        // Get all subscriptions from web service database
+        respFromSubscriptionWS = await axios.get(subscriptionsWS_url, {
+            headers: { 'x-access-token': CurrentUser.getSubscriptionsWSToken() }
         });
     }
     catch (err) {
-        console.log("getting all subscribtions from movies ws is failed!");
+        console.log("getting all subscriptions from movies ws is failed!");
         console.log(err);
     }
 
-    let memberSubscriptions = respFromSubscritionWS.data.find(s => s.MemberID === memberID);
+    let memberSubscriptions = respFromSubscriptionWS.data.find(s => s.MemberID === memberID);
 
 
-    if (memberSubscriptions) { // update member subscription movies
+    if (memberSubscriptions) { // Update member subscription movies
         let status;
 
-        let subscribtionObj = {          // create subscription obj with all inputed data
-            MemmberID: memberSubscriptions.MemberID,
+        let subscriptionObj = {          // Create subscription obj with all inputted data
+            MemberID: memberSubscriptions.MemberID,
             Movies: memberSubscriptions.Movies
         }
 
 
-        subscribtionObj.Movies.push({ movieID: input.movie, date: input.date });
+        subscriptionObj.Movies.push({ movieID: input.movie, date: input.date });
 
 
         try {
-            // send data to my web service and insert to database
-            status = await axios.put(subscriptionsWS_url + "/" + memberSubscriptions._id, { MemberID: subscribtionObj.MemmberID, Movies: subscribtionObj.Movies }, {
-                headers: { 'x-access-token': CurrentUser.getSubscribtionsWSToken() }
+            // Send data to my web service and insert to database
+            status = await axios.put(subscriptionsWS_url + "/" + memberSubscriptions._id, { MemberID: subscriptionObj.MemberID, Movies: subscriptionObj.Movies }, {
+                headers: { 'x-access-token': CurrentUser.getSubscriptionsWSToken() }
             });
 
         }
         catch (err) {
-            console.log("Update subscribtion in WS is failed!");
+            console.log("Update subscription in WS is failed!");
             console.log(err);
         }
 
 
         return status;
     }
-    else { // first member subscription - create new 
+    else { // First member subscription - create new 
         let status;
 
-        let subscribtionObj = {          // create subscription obj with all inputed data
-            MemmberID: memberID,
+        let subscriptionObj = {          // create subscription obj with all inputted data
+            MemberID: memberID,
             Movies: [{ movieID: input.movie, date: input.date }]
         }
 
 
         try {
-            // send data to my web service and insert to database
-            status = await axios.post(subscriptionsWS_url, { MemberID: subscribtionObj.MemmberID, Movies: subscribtionObj.Movies }, {
-                headers: { 'x-access-token': CurrentUser.getSubscribtionsWSToken() }
+            // Send data to my web service and insert to database
+            status = await axios.post(subscriptionsWS_url, { MemberID: subscriptionObj.MemberID, Movies: subscriptionObj.Movies }, {
+                headers: { 'x-access-token': CurrentUser.getSubscriptionsWSToken() }
             });
 
         }
         catch (err) {
-            console.log("Create subscribtion in WS is failed!");
+            console.log("Create subscription in WS is failed!");
             console.log(err);
         }
 
@@ -172,30 +171,30 @@ const createSubscription = async function (input, memberID) {
 
 const deleteMember = async function (memberID) {
 
-    let status, status1
+    let status
     let allSubscriptionsArr;
 
     try {
-        // delete member from WS by id 
+        // Delete member from WS by id 
         status = await axios.delete(membersWS_url + '/' + memberID, {
-            headers: { 'x-access-token': CurrentUser.getSubscribtionsWSToken() }
+            headers: { 'x-access-token': CurrentUser.getSubscriptionsWSToken() }
         });
 
-        // get all subscriptions
+        // Get all subscriptions
         allSubscriptionsArr = await axios.get(subscriptionsWS_url, {
-            headers: { 'x-access-token': CurrentUser.getSubscribtionsWSToken() }
+            headers: { 'x-access-token': CurrentUser.getSubscriptionsWSToken() }
         });
     }
     catch (err) {
         console.log(err);
     }
 
-    // delete member and THAN delete his subscriptions
+    // Delete member and THAN delete his subscriptions
     let subscription = allSubscriptionsArr.data.find(s => s.MemberID === memberID);
 
     try {
-        status1 = await axios.delete(subscriptionsWS_url + '/' + subscription._id, {
-            headers: { 'x-access-token': CurrentUser.getSubscribtionsWSToken() }
+        status = await axios.delete(subscriptionsWS_url + '/' + subscription._id, {
+            headers: { 'x-access-token': CurrentUser.getSubscriptionsWSToken() }
         });
     }
     catch (err) {
@@ -210,22 +209,21 @@ const addMember = async function (input) {
     let respFromMembersWS;
 
     try {
-        respFromMembersWS = await getAllMembersIncludeSubscribtions(); // get all members from web service database(check if member already exists)
+        respFromMembersWS = await getAllMembersIncludeSubscriptions(); // Get all members from web service database(check if member already exists)
     }
     catch (err) {
         console.log("get member from movies ws is failed!");
         console.log(err);
     }
 
-
-    let member = respFromMembersWS.find(member => member.Email == input.Email); // check if member already exists
+    let member = respFromMembersWS.find(member => member.Email === input.Email); // Check if member already exists
 
     if (!member) { // if is new member
         let status;
 
         try {
             status = await axios.post(membersWS_url, { Name: input.Name, Email: input.Email, City: input.City }, {
-                headers: { 'x-access-token': CurrentUser.getSubscribtionsWSToken() }
+                headers: { 'x-access-token': CurrentUser.getSubscriptionsWSToken() }
             });
         }
         catch (err) {
@@ -249,7 +247,7 @@ const updateMember = async function (memberData) {
 
     try {
         status = await axios.put(membersWS_url + "/" + memberData.id, { Name: memberData.Name, Email: memberData.Email, City: memberData.City }, {
-            headers: { 'x-access-token': CurrentUser.getSubscribtionsWSToken() }
+            headers: { 'x-access-token': CurrentUser.getSubscriptionsWSToken() }
         });
     }
     catch (err) {
@@ -262,4 +260,4 @@ const updateMember = async function (memberData) {
 }
 
 
-export default { getAllMembersIncludeSubscribtions, createSubscription, addMember, deleteMember, updateMember }
+export default { getAllMembersIncludeSubscriptions: getAllMembersIncludeSubscriptions, createSubscription, addMember, deleteMember, updateMember }

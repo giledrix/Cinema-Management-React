@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import CurrentUser from '../../Utils/CurrentUser';
 import Typography from '@material-ui/core/Typography';
 import { withRouter } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { MoviesContext } from './MoviesContext'
 import moviesBL from '../../BL/moviesBL';
 import Subscriptions from './Subscriptions';
@@ -42,18 +42,18 @@ function Movie_Comp(props) {
   const deleteMovie = async () => {
     let resp = await moviesBL.deleteMovie(props.movieData.id);
 
-    if (resp.data == "Movie is Deleted") {
-      showSnackbarAlret('Movie deleted !!', 'success');
+    if (resp.data === "Movie is Deleted") {
+      showSnackbarAlert('Movie deleted !!', 'success');
     }
     else {
-      showSnackbarAlret('Delete movie is failed...!', 'error');
+      showSnackbarAlert('Delete movie is failed...!', 'error');
     }
 
-    props.getAllMoviesCallBack(); // get all  movies again (by using callback function) in -AllUsers- component for reRender.
+    props.getAllMoviesCallBack(); // Get all  movies again (by using callback function) in -AllUsers- component for reRender.
   }
 
-  const showSnackbarAlret = (message, variant) => {
-    // variant could be success, error, warning, info, or default
+  const showSnackbarAlert = (message, variant) => {
+    // Variant could be success, error, warning, info, or default
     enqueueSnackbar(message, { variant: variant });
   };
 
@@ -77,8 +77,8 @@ function Movie_Comp(props) {
             <Typography gutterBottom variant="h5" component="h2">
               <b>  {props.movieData.Name} , {props.movieData.Premiered.substring(0, 4)}</b>
             </Typography>
-            <div id="geners">
-              <b>Geners : </b><br />
+            <div id="genres">
+              <b>Genres : </b><br />
 
               {
                 props.movieData.Genres.map((genre, i) => {

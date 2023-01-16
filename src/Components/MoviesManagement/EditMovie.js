@@ -30,29 +30,29 @@ const useStyles = makeStyles({
         background: 'linear-gradient(45deg, #1c1b1b 30%, #000000 90%)',
     },
     notchedOutline: {
-        color: "red !important", // label foucus color 
+        color: "red !important", // Label focus color 
         borderWidth: "1px",
-        borderColor: "black !important" // border color when not focus
+        borderColor: "black !important" // Border color when not focus
 
     },
     cssOutlinedInput: {
-        color: "black !important", // text color when not focus
+        color: "black !important", // Text color when not focus
         "&$cssFocused $notchedOutline": {
-            borderColor: `black !important` // border color when Focused
+            borderColor: `black !important` // Border color when Focused
         }
 
     },
     cssFocused: {
-        color: "black !important" // text and label color when focued
+        color: "black !important" // Text and label color when focused
     },
 
     cssLabel: {
-        color: "black !important" // label color when out of focus
+        color: "black !important" // Label color when out of focus
     }
 });
 
 function EditMovie_Comp(props) {
-    const [movieData, setMovieData] = useContext(MoviesContext); // use contex API
+    const [movieData, setMovieData] = useContext(MoviesContext); // Use context API
     const [nameError, setNameError] = useState({ isInvalid: false, errorHelper: '' });
     const [genresError, setGenres] = useState({ isInvalid: false, errorHelper: '' });
     const [urlError, setUrlError] = useState({ isInvalid: false, errorHelper: '' });
@@ -60,15 +60,15 @@ function EditMovie_Comp(props) {
     const { enqueueSnackbar } = useSnackbar();
     const classes = useStyles();
 
-    // will run on first render and when imgUrl is change
+    // Will run on first render and when imgUrl is change
     useEffect(() => {
-        imageExists(movieData.Image) ? setShowPoster(true) : setShowPoster(false) 
+        imageExists(movieData.Image) ? setShowPoster(true) : setShowPoster(false)
     }, [movieData.Image]);
 
 
 
     const checkInputs = async (e) => {
-        e.preventDefault(); // prevent sumbit bottun to refresh page
+        e.preventDefault(); // Prevent submit button to refresh page
 
         // check if string is URL
         let pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
@@ -79,7 +79,7 @@ function EditMovie_Comp(props) {
             '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
 
 
-        if (movieData.Name.length == 0) {
+        if (movieData.Name.length === 0) {
             setNameError({ isInvalid: true, errorHelper: "Movie Name must be filled" });
             setGenres({ isInvalid: false, errorHelper: "" });
             setUrlError({ isInvalid: false, errorHelper: "" });
@@ -89,7 +89,7 @@ function EditMovie_Comp(props) {
             setGenres({ isInvalid: false, errorHelper: "" });
             setUrlError({ isInvalid: false, errorHelper: "" });
         }
-        else if (movieData.Genres.length == 0) {
+        else if (movieData.Genres.length === 0) {
             setGenres({ isInvalid: true, errorHelper: "Genres must be filled" });
             setNameError({ isInvalid: false, errorHelper: "" });
             setUrlError({ isInvalid: false, errorHelper: "" });
@@ -99,7 +99,7 @@ function EditMovie_Comp(props) {
             setNameError({ isInvalid: false, errorHelper: "" });
             setUrlError({ isInvalid: false, errorHelper: "" });
         }
-        else if (movieData.Image.length == 0) {
+        else if (movieData.Image.length === 0) {
             setUrlError({ isInvalid: true, errorHelper: "Image URL must be filled" });
             setNameError({ isInvalid: false, errorHelper: "" });
             setGenres({ isInvalid: false, errorHelper: "" });
@@ -109,34 +109,34 @@ function EditMovie_Comp(props) {
             setNameError({ isInvalid: false, errorHelper: "" });
             setGenres({ isInvalid: false, errorHelper: "" });
         }
-        else if (movieData.premired == 0) {
+        else if (movieData.premiered === 0) {
             alert("Date must be set");
 
         }
-        else { // all inputs are OK
+        else { // All inputs are OK
 
 
             let resp;
             try {
-                resp = await moviesBL.updateMovie(movieData.id, movieData); // send user data to WS
+                resp = await moviesBL.updateMovie(movieData.id, movieData); // Send user data to WS
             }
             catch (err) {
                 console.log(err);
             }
 
-            if (resp == "Movie is Updated") { // if movie is created
-                showSnackbarAlret('Movie is Updated !!', 'success');
-                props.history.push("/menu/movies/allMovies"); // redirect to all movies
+            if (resp === "Movie is Updated") { // if movie is created
+                showSnackbarAlert('Movie is Updated !!', 'success');
+                props.history.push("/menu/movies/allMovies"); // Redirect to all movies
             }
             else {
-                showSnackbarAlret('Failed update movie', 'error');
+                showSnackbarAlert('Failed update movie', 'error');
             }
         }
     }
 
 
-    const showSnackbarAlret = (message, variant) => {
-        // variant could be success, error, warning, info, or default
+    const showSnackbarAlert = (message, variant) => {
+        // Variant could be success, error, warning, info, or default
         enqueueSnackbar(message, { variant: variant });
     };
 
@@ -275,7 +275,7 @@ function EditMovie_Comp(props) {
 
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DesktopDatePicker
-                            label="Premired"
+                            label="Premiered"
                             value={movieData.Premiered}
                             onChange={(newValue) => {
                                 setMovieData({ ...movieData, Premiered: newValue })
@@ -311,8 +311,6 @@ function EditMovie_Comp(props) {
                     >
                         Cancel
                     </Button><br />
-
-
 
                 </form>
 

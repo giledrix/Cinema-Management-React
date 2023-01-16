@@ -37,12 +37,12 @@ function MenuContainer_Comp(props) {
 
 
 
-    // check if user is authenticate
+    // Check if user is authenticate
     useEffect(async () => {
 
         let userToken = CurrentUser.getCinemaWSToken();
 
-        if (userToken == undefined || userToken == null) {
+        if (userToken === undefined || userToken === null) {
             props.history.push('/');
         }
     }, []);
@@ -51,10 +51,10 @@ function MenuContainer_Comp(props) {
     const userLogout = () => {
         sessionStorage.clear();
         props.history.push('/');
-        showSnackbarAlret('Logout from the system...', 'info');
+        showSnackbarAlert('Logout from the system...', 'info');
     }
 
-    const showSnackbarAlret = (message, variant) => {
+    const showSnackbarAlert = (message, variant) => {
         // variant could be success, error, warning, info, or default
         enqueueSnackbar(message, { variant: variant });
     };
@@ -78,12 +78,12 @@ function MenuContainer_Comp(props) {
                 <BottomNavigationAction label="Home" component={Link} to={path + "/home"} icon={<HomeIcon />} />
                 {CurrentUser.getPermission("View Movies") ? <BottomNavigationAction label="Movies" component={Link} to={path + "/movies/allMovies"} icon={<MovieIcon />} /> : null}
                 {CurrentUser.getPermission("View Subscriptions") ? <BottomNavigationAction label="Subscriptions" component={Link} to={path + "/SubscriptionManagement"} icon={<SubscriptionsIcon color="yellow" />} /> : null}
-                {CurrentUser.getClassification() == "administrator" ? <BottomNavigationAction label="Users Management" component={Link} to={path + "/usersmanagement"} icon={<GroupIcon />} /> : null}
+                {CurrentUser.getClassification() === "administrator" ? <BottomNavigationAction label="Users Management" component={Link} to={path + "/usersmanagement"} icon={<GroupIcon />} /> : null}
                 <BottomNavigationAction onClick={() => userLogout()} label={"Logout(" + CurrentUser.getName() + ")"} icon={<ExitToAppIcon />} />
             </BottomNavigation>
 
 
-
+            {/* Single Page Application */}
             <Switch>
                 <Route path={path + "/movies"}>
                     <MoviesManagementContainer_Comp />

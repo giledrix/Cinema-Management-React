@@ -12,11 +12,11 @@ import { FaUserCircle } from 'react-icons/fa';
 import { BsFillLockFill } from 'react-icons/bs';
 import Background from '../../Style/images/login_background.jpg';
 import { useSnackbar } from 'notistack';
+import { circularProgressClasses } from '@material-ui/core';
 
 
 const useStyles = makeStyles({
     root: {
-        // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
         background: 'linear-gradient(45deg, #1c1b1b 30%, #000000 90%)',
         border: 0,
         borderRadius: 3,
@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 
     },
     notchedOutline: {
-        color: "red !important", // label foucus color 
+        color: "red !important", // label focus color 
         borderWidth: "1px",
         borderColor: "black !important" // border color when not focus
 
@@ -40,7 +40,7 @@ const useStyles = makeStyles({
 
     },
     cssFocused: {
-        color: "black !important" // text and label color when focued
+        color: "black !important" // text and label color when focused
     },
 
     cssLabel: {
@@ -59,14 +59,14 @@ function Login_Comp(props) {
     const { enqueueSnackbar } = useSnackbar();
 
 
-    // auto login if user is have verified token
+    // Auto login if user is have verified token
     useEffect(async () => {
 
-        // check if session storage exist
+        // Check if session storage exist
         if (sessionStorage.getItem('currentUser')) {
             let status = await usersBL.verifyUserToken();
 
-            if (status && status.data.message == "User is verified") {
+            if (status && status.data.message === "User is verified") {
                 props.history.push("/menu/movies/allMovies");
             }
         }
@@ -77,9 +77,9 @@ function Login_Comp(props) {
         // Disable error color and text
         setUsernameError({ isInvalid: false, errorHelper: '' });
         setPassError({ isInvalid: false, errorHelper: '' });
-    }, [user.username, user.password]) // depend only in text
+    }, [user.username, user.password]) // Depend only in text
 
-    const showSnackbarAlret =  (message,variant) => {
+    const showSnackbarAlert = (message, variant) => {
         // variant could be success, error, warning, info, or default
         enqueueSnackbar(message, { variant: variant });
     };
@@ -87,41 +87,34 @@ function Login_Comp(props) {
 
 
     const checkInputs = async (e) => {
-        e.preventDefault(); // prevent sumbit bottun to refresh page
+        e.preventDefault(); // Prevent submit button to refresh page
 
         if (user.username.length < 1) {
-            setUsernameError({ isInvalid: true, errorHelper: "Insert Useranme" });
+            setUsernameError({ isInvalid: true, errorHelper: "Insert Username" });
         }
         else if (user.password < 1) {
             setPassError({ isInvalid: true, errorHelper: "Insert Password" });
         }
         else {
             let resp = await usersBL.loginValidation(user);
-
             let userData = resp.data;
 
-            if (typeof userData === 'object' && userData !== null) { // if user is found
+            if (typeof userData === 'object' && userData !== null) { // If user is found
 
                 currentUser.saveCurrentUserData(userData); // Save all user data (include token) in session storage
-
-                props.history.push("/menu/home"); // redirect to menu 
-                showSnackbarAlret('Login Successfully !! ','success');
+                props.history.push("/menu/home"); // Redirect to menu 
+                showSnackbarAlert('Login Successfully !! ', 'success');
             }
-            else if (userData == "Password inccorect") { // if password is inccorect show proper message 
-                setPassError({ isInvalid: true, errorHelper: "Inccorect Password" });
+            else if (userData === "Password incorrect") { // If password is incorrect show proper message 
+                setPassError({ isInvalid: true, errorHelper: "Incorrect Password" });
             }
-            else {                // if user is not exist show proper message
+            else {                // If user is not exist show proper message
                 setUsernameError({ isInvalid: true, errorHelper: "User is not exist" });
             }
         }
-
-
     }
 
-
-
     return (
-
         <div style={{
             backgroundImage: `linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,1)),url(${Background})`,
             backgroundPosition: 'center',
@@ -132,22 +125,17 @@ function Login_Comp(props) {
             display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'
         }}>
 
-
-
-
-
             <Box id="formBox"
                 sx={{
                     '& .MuiTextField-root': { m: 1, width: '25ch' },
-                }}
+                }}>
 
-            >
 
 
                 <h1> Login  </h1>
 
-                {/* when press submit call sendData funcrtion and send him the event as parameter */}
-                <form  noValidate autoComplete="off" onSubmit={e => checkInputs(e)}>
+                {/* When press submit, call sendData function and send him the event as parameter */}
+                <form noValidate autoComplete="off" onSubmit={e => checkInputs(e)}>
 
 
                     <TextField
@@ -224,10 +212,7 @@ function Login_Comp(props) {
 
         </div>
 
-
-
     );
 }
 
 export default Login_Comp;
-

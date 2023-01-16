@@ -6,29 +6,26 @@ const subscriptionsWS_url = "http://localhost:8000/api/subscriptions"
 const membersWS_url = "http://localhost:8000/api/members"
 
 
-
-const getAllMoviesAndtheirSubscriptions = async () => {
+const getAllMoviesAndTheirSubscriptions = async () => {
     let respFromMoviesWS, respFromSubscriptionsWS, respFromMembersWS;
     let allSubscriptionsArr, allMembersArr, allMoviesArr;
 
     try {
-       
-
-        // get all movies from web service database
+        // Get all movies from web service database
         respFromMoviesWS = await axios.get(moviesWS_url, {
-            headers: { 'x-access-token': CurrentUser.getSubscribtionsWSToken() }
+            headers: { 'x-access-token': CurrentUser.getSubscriptionsWSToken() }
 
         });
 
-        // get all Subscriptions from web service database
+        // Get all Subscriptions from web service database
         respFromSubscriptionsWS = await axios.get(subscriptionsWS_url, {
-            headers: { 'x-access-token': CurrentUser.getSubscribtionsWSToken() }
+            headers: { 'x-access-token': CurrentUser.getSubscriptionsWSToken() }
 
         });
 
-        // get all Members from web service database
+        // Get all Members from web service database
         respFromMembersWS = await axios.get(membersWS_url, {
-            headers: { 'x-access-token': CurrentUser.getSubscribtionsWSToken() }
+            headers: { 'x-access-token': CurrentUser.getSubscriptionsWSToken() }
         });
     }
     catch (err) {
@@ -42,10 +39,10 @@ const getAllMoviesAndtheirSubscriptions = async () => {
 
     let allMoviesWithSubscriptions = [];
 
-    // data shaping from 3 sources (movie WS,Member WS , SubscriptionsWS)
+    // Data shaping from 3 sources (movie WS,Member WS , SubscriptionsWS)
     allMoviesArr.forEach(movie => {
 
-        let allMovieSubscribtions = [];
+        let allMovieSubscriptions = [];
 
         allSubscriptionsArr.forEach(subsc => {
 
@@ -58,7 +55,7 @@ const getAllMoviesAndtheirSubscriptions = async () => {
                         memberName: member.Name,
                         date: s.date
                     }
-                    allMovieSubscribtions.push(memberObj);
+                    allMovieSubscriptions.push(memberObj);
                 }
             });
         });
@@ -69,10 +66,10 @@ const getAllMoviesAndtheirSubscriptions = async () => {
             Premiered: movie.Premiered.substring(0, 10),
             Image: movie.Image,
             Genres: movie.Genres,
-            Watched: allMovieSubscribtions
+            Watched: allMovieSubscriptions
         }
 
-        allMovieSubscribtions = [];
+        allMovieSubscriptions = []; // RESET
         allMoviesWithSubscriptions.push(MovieObJ);
 
     });
@@ -82,18 +79,18 @@ const getAllMoviesAndtheirSubscriptions = async () => {
 
 const addMovie = async function (input) {
 
-    let genresArry = input.genres.split(','); // convert string to array
+    let genresArray = input.genres.split(','); // Convert string to array
 
-    let movieObj = {                 // create movie obj with all inputed data
+    let movieObj = {                 // Create movie obj with all inputted data
         Name: input.name,
-        Genres: genresArry,
+        Genres: genresArray,
         Image: input.imgUrl,
-        Premiered: input.premired
+        Premiered: input.premiered
 
     }
 
     let result = await axios.post(moviesWS_url, { Name: movieObj.Name, Genres: movieObj.Genres, Image: movieObj.Image, Premiered: movieObj.Premiered }, {
-        headers: { 'x-access-token': CurrentUser.getSubscribtionsWSToken() }
+        headers: { 'x-access-token': CurrentUser.getSubscriptionsWSToken() }
     });
 
     return result.data;
@@ -101,20 +98,19 @@ const addMovie = async function (input) {
 
 const updateMovie = async function (movieID, input) {
 
-    let genresArry = input.Genres.split(','); // convert string to array of strings
+    let genresArray = input.Genres.split(','); // Convert string to array of strings
 
-    let movieObj = {                         // // create movie obj with all inputed data
+    let movieObj = {                         // // Create movie obj with all inputted data
         Name: input.Name,
-        Genres: genresArry,
+        Genres: genresArray,
         Image: input.Image,
         Premiered: input.Premiered
 
     }
 
 
-
     let result = await axios.put(moviesWS_url + "/" + movieID, { Name: movieObj.Name, Genres: movieObj.Genres, Image: movieObj.Image, Premiered: movieObj.Premiered }, {
-        headers: { 'x-access-token': CurrentUser.getSubscribtionsWSToken() }
+        headers: { 'x-access-token': CurrentUser.getSubscriptionsWSToken() }
     });
 
     return result.data;
@@ -126,12 +122,12 @@ const deleteMovie = async function (movieID) {
     let respFromSubscriptionWS;
 
     respFromMoviesWS = await axios.delete(moviesWS_url + "/" + movieID, {
-        headers: { 'x-access-token': CurrentUser.getSubscribtionsWSToken() }
+        headers: { 'x-access-token': CurrentUser.getSubscriptionsWSToken() }
     });
 
     if (respFromMoviesWS.data === "Movie is Deleted") {
         respFromSubscriptionWS = await axios.get(subscriptionsWS_url, {
-            headers: { 'x-access-token': CurrentUser.getSubscribtionsWSToken() }
+            headers: { 'x-access-token': CurrentUser.getSubscriptionsWSToken() }
 
         });
         let allSubscriptionsArr = respFromSubscriptionWS.data;
@@ -152,7 +148,7 @@ const deleteMovie = async function (movieID) {
                 let status;
                 try {
                     status = await axios.delete(subscriptionsWS_url + "/" + s._id, {
-                        headers: { 'x-access-token': CurrentUser.getSubscribtionsWSToken() }
+                        headers: { 'x-access-token': CurrentUser.getSubscriptionsWSToken() }
                     });
                 }
                 catch (err) {
@@ -167,12 +163,12 @@ const deleteMovie = async function (movieID) {
             allSubscriptionsArr.forEach(async s => {
 
                 let subscriptionObJ = {
-                    MemmberID: s.MemberID,
+                    MemberID: s.MemberID,
                     Movies: s.Movies
                 }
                 try {
-                    result = await axios.post(subscriptionsWS_url, { MemberID: subscriptionObJ.MemmberID, Movies: subscriptionObJ.Movies }, {
-                        headers: { 'x-access-token': CurrentUser.getSubscribtionsWSToken() }
+                    result = await axios.post(subscriptionsWS_url, { MemberID: subscriptionObJ.MemberID, Movies: subscriptionObJ.Movies }, {
+                        headers: { 'x-access-token': CurrentUser.getSubscriptionsWSToken() }
                     });
                 }
                 catch (err) {
@@ -191,4 +187,4 @@ const deleteMovie = async function (movieID) {
     }
 }
 
-export default { getAllMoviesAndtheirSubscriptions, addMovie, updateMovie, deleteMovie }
+export default { getAllMoviesAndTheirSubscriptions, addMovie, updateMovie, deleteMovie }

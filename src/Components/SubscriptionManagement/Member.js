@@ -21,10 +21,10 @@ function Member_Comp(props) {
     const [memberData, setMemberData] = useContext(SubscriptionsContext);
     const { enqueueSnackbar } = useSnackbar();
 
-    // will run ONLY on first render 
+    // Will run ONLY on first render 
     useEffect(async () => {
         setMemberData({ ...memberData, getAllMembersCallBack: props.getAllMembersCallBack });
-    }, []) // empty dependency list
+    }, []) // Empty dependency list
 
 
     const navToEditMember = () => {
@@ -36,17 +36,17 @@ function Member_Comp(props) {
         let resp = await SubscriptionsBL.deleteMember(props.memberData.id)
 
         if (resp.data === "Member is Deleted") {
-            showSnackbarAlret('Member is Deleted !!', 'success');
+            showSnackbarAlert('Member is Deleted !!', 'success');
         }
         else {
-            showSnackbarAlret('Delete member is failed..', 'error');
+            showSnackbarAlert('Delete member is failed..', 'error');
         }
 
-        props.getAllMembersCallBack(); // get all  Member again (by using callback function) in -AllMembers- component for Rerender.(); 
+        props.getAllMembersCallBack(); // Get all  Member again (by using callback function) in -AllMembers- component for Rerender.(); 
     }
 
-    const showSnackbarAlret = (message, variant) => {
-        // variant could be success, error, warning, info, or default
+    const showSnackbarAlert = (message, variant) => {
+        // Variant could be success, error, warning, info, or default
         enqueueSnackbar(message, { variant: variant });
     };
 
@@ -78,7 +78,7 @@ function Member_Comp(props) {
                                 <b>Email :</b> {props.memberData.Email} <br />
                                 <b>City :</b> {props.memberData.City}<br /><br />
 
-                                <MovieWatched memberID={props.memberData.id} subscriptions={props.memberData.Subscribtions} />
+                                <MovieWatched memberID={props.memberData.id} subscriptions={props.memberData.Subscriptions} />
 
                             </Typography>
                         </CardContent>

@@ -1,11 +1,9 @@
 import '../../Style/AddUser.css';
 import { withRouter } from 'react-router-dom';
 import React from 'react';
-import { useEffect } from 'react';
 import { SubscriptionsContext } from './SubscriptionsContext'
 import { useContext, useState } from 'react';
 import SubscriptionsBL from '../../BL/SubscriptionsBL';
-import CurrentUser from '../../Utils/CurrentUser';
 import Box from '@mui/material/Box';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -28,7 +26,7 @@ const useStyles = makeStyles({
         background: 'linear-gradient(45deg, #1c1b1b 30%, #000000 90%)',
     },
     notchedOutline: {
-        color: "red !important", // label foucus color 
+        color: "red !important", // label focus color 
         borderWidth: "1px",
         borderColor: "black !important" // border color when not focus
 
@@ -41,7 +39,7 @@ const useStyles = makeStyles({
 
     },
     cssFocused: {
-        color: "black !important" // text and label color when focued
+        color: "black !important" // text and label color when focused
     },
 
     cssLabel: {
@@ -53,7 +51,7 @@ const useStyles = makeStyles({
 
 
 function EditMember_Comp(props) {
-    const [memberData, setMemberData] = useContext(SubscriptionsContext); // use contex API
+    const [memberData, setMemberData] = useContext(SubscriptionsContext); // Use context API
     const [nameError, setNameError] = useState({ isInvalid: false, errorHelper: '' });
     const [EmailError, setEmailError] = useState({ isInvalid: false, errorHelper: '' });
     const [CityError, setCityError] = useState({ isInvalid: false, errorHelper: '' });
@@ -62,9 +60,9 @@ function EditMember_Comp(props) {
 
 
     const checkInputs = async (e) => {
-        e.preventDefault(); // prevent sumbit bottun to refresh page
+        e.preventDefault(); // Prevent submit button to refresh page
 
-        if (memberData.Name.length == 0) {
+        if (memberData.Name.length === 0) {
             setNameError({ isInvalid: true, errorHelper: "Member Name must be filled" });
             setEmailError({ isInvalid: false, errorHelper: "" });
             setCityError({ isInvalid: false, errorHelper: "" });
@@ -75,7 +73,7 @@ function EditMember_Comp(props) {
             setCityError({ isInvalid: false, errorHelper: "" });
 
         }
-        else if (memberData.Email.length == 0) {
+        else if (memberData.Email.length === 0) {
             setNameError({ isInvalid: false, errorHelper: "" });
             setEmailError({ isInvalid: true, errorHelper: "Email must be filled" });
             setCityError({ isInvalid: false, errorHelper: "" });
@@ -87,7 +85,7 @@ function EditMember_Comp(props) {
             setCityError({ isInvalid: false, errorHelper: "" });
 
         }
-        else if (memberData.City.length == 0) {
+        else if (memberData.City.length === 0) {
             setNameError({ isInvalid: false, errorHelper: "" });
             setEmailError({ isInvalid: false, errorHelper: "" });
             setCityError({ isInvalid: true, errorHelper: "City must be filled" });
@@ -97,28 +95,28 @@ function EditMember_Comp(props) {
             setEmailError({ isInvalid: false, errorHelper: "" });
             setCityError({ isInvalid: true, errorHelper: "City must beat least 2 char" });
         }
-        else { // all inputs are OK
+        else { // All inputs are OK
 
             let resp;
             try {
-                resp = await SubscriptionsBL.updateMember(memberData); // send member data to WS
+                resp = await SubscriptionsBL.updateMember(memberData); // Send member data to WS
             }
             catch (err) {
                 console.log(err);
             }
 
-            if (resp.data == "Member is Updated") { // if movie is created
-                showSnackbarAlret('Member is Updated !!', 'success');
-                props.history.push("/menu/SubscriptionManagement/allMembers"); // redirect to all movies
+            if (resp.data === "Member is Updated") { // If movie is created
+                showSnackbarAlert('Member is Updated !!', 'success');
+                props.history.push("/menu/SubscriptionManagement/allMembers"); // Redirect to all movies
             }
             else {
-                showSnackbarAlret('Failed update member..', 'error');
+                showSnackbarAlert('Failed update member..', 'error');
             }
         }
     }
 
-    const showSnackbarAlret = (message, variant) => {
-        // variant could be success, error, warning, info, or default
+    const showSnackbarAlert = (message, variant) => {
+        // Variant could be success, error, warning, info, or default
         enqueueSnackbar(message, { variant: variant });
     };
 

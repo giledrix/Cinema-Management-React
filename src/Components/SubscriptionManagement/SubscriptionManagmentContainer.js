@@ -13,16 +13,16 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from "@mui/material/Button";
 import { useSnackbar } from 'notistack';
 
-// theme for nav sub-menu
+// Theme for nav sub-menu
 const theme = createTheme({
   palette: {
     selected: {
       main: "#FFC107", // Button background color
-      contrastText: "#000000" //button text folor
+      contrastText: "#000000" //Button text color
     },
     unSelected: {
       main: "#000000", // Button background color
-      contrastText: "#FFC107" //button text folor
+      contrastText: "#FFC107" //Button text color
     },
   }
 });
@@ -36,17 +36,17 @@ function SubscriptionManagementContainer_Comp(props) {
   const { enqueueSnackbar } = useSnackbar();
   let { path, url } = useRouteMatch();
 
-  // check if user is authenticate (run in first render AND also when location change)
+  // Check if user is authenticate (run in first render AND also when location change)
   useEffect(async () => {
 
-    if (CurrentUser.getPermission("View Subscriptions")) {// Prevent appropriate permissions users to naviagte Subsctiption page via URL
+    if (CurrentUser.getPermission("View Subscriptions")) {// Prevent appropriate permissions users to navigate Subscription page via URL
       // Check if User Token is valid(expired etc..)
       let resp = await usersBL.verifyUserToken();
 
       if (resp) {
-        if (resp.data.message == "jwt TokenExpiredError" || resp.data.message == "No token provided." || resp.data.message == "Failed to authenticate token") {
+        if (resp.data.message === "jwt TokenExpiredError" || resp.data.message === "No token provided." || resp.data.message === "Failed to authenticate token") {
           sessionStorage.clear();
-          showSnackbarAlret('Token is invalid or expired', 'error');
+          showSnackbarAlert('Token is invalid or expired', 'error');
           props.history.push('/');
         }
         else {
@@ -54,7 +54,7 @@ function SubscriptionManagementContainer_Comp(props) {
         }
       }
       else {
-        showSnackbarAlret('Token is invalid', 'error');
+        showSnackbarAlert('Token is invalid', 'error');
         props.history.push('/');
       }
     }
@@ -76,8 +76,8 @@ function SubscriptionManagementContainer_Comp(props) {
     props.history.push(url + "/addmember");
   }
 
-  const showSnackbarAlret = (message, variant) => {
-    // variant could be success, error, warning, info, or default
+  const showSnackbarAlert = (message, variant) => {
+    // Variant could be success, error, warning, info, or default
     enqueueSnackbar(message, { variant: variant });
   };
 
@@ -102,7 +102,7 @@ function SubscriptionManagementContainer_Comp(props) {
       <br /><br /><br />
 
 
-
+      {/* Using ContextAPI set main container as provider that host all other child's components(using composition) */}
       <SubscriptionDataContextProvider>
 
         <Switch>

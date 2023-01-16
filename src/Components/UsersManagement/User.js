@@ -9,7 +9,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withRouter } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { UsersContext } from './Context'
 import usersBL from '../../BL/usersBL';
 import { useSnackbar } from 'notistack';
@@ -47,18 +47,18 @@ function User_Comp(props) {
         let resp = await usersBL.deleteUser(props.userData.id);
         let status = resp.data.deleteStatus;
 
-        if (status == "delete user failed") {
-            showSnackbarAlret('Account deleting is Failed  , please try again', 'error');
+        if (status === "delete user failed") {
+            showSnackbarAlert('Account deleting is Failed  , please try again', 'error');
         }
-        else if (status == "OK") {
-            showSnackbarAlret('Account Successfully Deleted !!', 'success');
+        else if (status === "OK") {
+            showSnackbarAlert('Account Successfully Deleted !!', 'success');
         }
 
-        props.getUsersCallback(); // get all users again (by using callback function) in -AllUsers- component for reRender.
+        props.getUsersCallback(); // Get all users again (by using callback function) in -AllUsers- component for reRender.
     }
 
-    const showSnackbarAlret = (message, variant) => {
-        // variant could be success, error, warning, info, or default
+    const showSnackbarAlert = (message, variant) => {
+        // Variant could be success, error, warning, info, or default
         enqueueSnackbar(message, { variant: variant });
       };
 
@@ -79,7 +79,7 @@ function User_Comp(props) {
                             <b>Session Timeout :</b> {props.userData.sessionTimeOut} <br /><br />
                             <b>Created Date :</b> {props.userData.createdDate} <br /><br />
                             <fieldset style={{ borderColor: 'black', width: '85%' }}>
-                                <b>Premissions :</b>
+                                <b>Permissions :</b>
                                 <ul>
                                     {props.userData.permissions.map(perm => {
                                         return <li key={perm}>{perm} </li>
