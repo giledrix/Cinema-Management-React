@@ -8,11 +8,11 @@ import { useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import MovieIcon from '@material-ui/icons/Movie';
-import SubscriptionsIcon from '@material-ui/icons/Subscriptions';
-import GroupIcon from '@material-ui/icons/Group';
-import HomeIcon from '@material-ui/icons/Home';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import MovieIcon from '@mui/icons-material/Movie';
+import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
+import GroupIcon from '@mui/icons-material/Group';
+import HomeIcon from '@mui/icons-material/Home';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useSnackbar } from 'notistack';
 import Home_Comp from './Home';
 
@@ -51,10 +51,10 @@ function MenuContainer_Comp(props) {
     const userLogout = () => {
         sessionStorage.clear();
         props.history.push('/');
-        showSnackbarAlert('Logout from the system...', 'info');
+        showSnackbarAlret('Logout from the system...', 'info');
     }
 
-    const showSnackbarAlert = (message, variant) => {
+    const showSnackbarAlret = (message, variant) => {
         // variant could be success, error, warning, info, or default
         enqueueSnackbar(message, { variant: variant });
     };

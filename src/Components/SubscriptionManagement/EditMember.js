@@ -12,7 +12,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import { FaUserCircle } from 'react-icons/fa';
 import { MdEmail, MdLocationCity } from 'react-icons/md';
 import { IoIosCreate } from 'react-icons/io';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useSnackbar } from 'notistack';
 
 const useStyles = makeStyles({
@@ -106,16 +106,16 @@ function EditMember_Comp(props) {
             }
 
             if (resp.data === "Member is Updated") { // If movie is created
-                showSnackbarAlert('Member is Updated !!', 'success');
+                showSnackbarAlret('Member is Updated !!', 'success');
                 props.history.push("/menu/SubscriptionManagement/allMembers"); // Redirect to all movies
             }
             else {
-                showSnackbarAlert('Failed update member..', 'error');
+                showSnackbarAlret('Failed update member..', 'error');
             }
         }
     }
 
-    const showSnackbarAlert = (message, variant) => {
+    const showSnackbarAlret = (message, variant) => {
         // Variant could be success, error, warning, info, or default
         enqueueSnackbar(message, { variant: variant });
     };

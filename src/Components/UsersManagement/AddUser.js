@@ -14,7 +14,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { IoIosCreate } from "react-icons/io";
 import { RiTimeFill } from "react-icons/ri";
 import { GrUserAdmin } from "react-icons/gr";
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import InputLabel from '@mui/material/InputLabel';
@@ -359,7 +359,7 @@ function AddUser_Comp(props) {
 
           <br />
 
-          <h3> Permissions: </h3>
+          <h3> Permissons: </h3>
 
           <FormControlLabel control={<Checkbox />} label="View Subscriptions" id="view_subscriptions" name="ViewSubscriptions" value="View Subscriptions" checked={user.permissions.includes("View Subscriptions") ? true : false} onChange={(e) => permissionsHandler(e)} />
 

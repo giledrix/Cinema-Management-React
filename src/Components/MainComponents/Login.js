@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Box from '@mui/material/Box';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { FaUserCircle } from 'react-icons/fa';
 import { BsFillLockFill } from 'react-icons/bs';
 import Background from '../../Style/images/login_background.jpg';

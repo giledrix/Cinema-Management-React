@@ -16,7 +16,7 @@ import { MdMovieFilter } from 'react-icons/md';
 import { BiListUl } from 'react-icons/bi';
 import { MdPhotoAlbum } from 'react-icons/md';
 import { AiFillSave } from 'react-icons/ai';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useSnackbar } from 'notistack';
 
 const useStyles = makeStyles({
@@ -109,7 +109,7 @@ function EditMovie_Comp(props) {
             setNameError({ isInvalid: false, errorHelper: "" });
             setGenres({ isInvalid: false, errorHelper: "" });
         }
-        else if (movieData.premiered === 0) {
+        else if (movieData.premired === 0) {
             alert("Date must be set");
 
         }
@@ -125,17 +125,17 @@ function EditMovie_Comp(props) {
             }
 
             if (resp === "Movie is Updated") { // if movie is created
-                showSnackbarAlert('Movie is Updated !!', 'success');
+                showSnackbarAlret('Movie is Updated !!', 'success');
                 props.history.push("/menu/movies/allMovies"); // Redirect to all movies
             }
             else {
-                showSnackbarAlert('Failed update movie', 'error');
+                showSnackbarAlret('Failed update movie', 'error');
             }
         }
     }
 
 
-    const showSnackbarAlert = (message, variant) => {
+    const showSnackbarAlret = (message, variant) => {
         // Variant could be success, error, warning, info, or default
         enqueueSnackbar(message, { variant: variant });
     };
@@ -275,7 +275,7 @@ function EditMovie_Comp(props) {
 
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DesktopDatePicker
-                            label="Premiered"
+                            label="Premired"
                             value={movieData.Premiered}
                             onChange={(newValue) => {
                                 setMovieData({ ...movieData, Premiered: newValue })

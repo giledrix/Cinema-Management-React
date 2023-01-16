@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Box from '@mui/material/Box';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import CreateIcon from '@material-ui/icons/Create';
+import CreateIcon from '@mui/icons-material/Create';
 import Background from '../../Style/images/login_background.jpg';
 import { FaUserCircle } from 'react-icons/fa';
 import { BsFillLockFill } from 'react-icons/bs';
@@ -83,7 +83,7 @@ function Register_Comp(props) {
             if (status === "Password Already set") { // if user is already created
                 setUsernameError({ isInvalid: true, errorHelper: "User is already Created (password already set)...." });
             }
-            else if (status === "User is not exist") { // if user is not registered
+            else if (status === "User is not exist") { // if user is not registred
                 setUsernameError({ isInvalid: true, errorHelper: "User is not exist" });
             }
             else {      // if password is create successfully
@@ -114,7 +114,7 @@ function Register_Comp(props) {
 
                 <h2>Create an Account  </h2>
 
-                {/* When press submit call sendData function and send him the event as parameter */}
+                {/* When press submit call sendData funcrtion and send him the event as parameter */}
                 <form noValidate autoComplete="off" onSubmit={e => checkInputs(e)}>
 
                     <TextField id="outlined-basic" label="Username" variant="outlined" type="text" name="username" error={usernameError.isInvalid ? true : false} helperText={usernameError.errorHelper}

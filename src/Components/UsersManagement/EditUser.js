@@ -13,7 +13,7 @@ import { AiFillRobot } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
 import { RiTimeFill } from "react-icons/ri";
 import { GrUserAdmin } from "react-icons/gr";
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';

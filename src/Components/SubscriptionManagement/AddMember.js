@@ -12,7 +12,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import { FaUserCircle } from 'react-icons/fa';
 import { MdEmail, MdLocationCity } from 'react-icons/md';
 import { IoIosCreate } from 'react-icons/io';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useSnackbar } from 'notistack';
 
 
@@ -70,7 +70,7 @@ function AddMember_Comp(props) {
     }, []);
 
     const checkInputs = async (e) => {
-        e.preventDefault(); // Prevent submit button to refresh the page
+        e.preventDefault(); // Prevent sumbit button to refresh the page
 
 
         if (member.Name.length === 0) {

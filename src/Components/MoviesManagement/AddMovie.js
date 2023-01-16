@@ -15,7 +15,7 @@ import { MdMovieFilter } from 'react-icons/md';
 import { BiListUl } from 'react-icons/bi';
 import { MdPhotoAlbum } from 'react-icons/md';
 import { AiFillSave } from 'react-icons/ai';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useSnackbar } from 'notistack';
 
 
@@ -274,7 +274,7 @@ function AddMovie_Comp(props) {
 
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DesktopDatePicker
-                            label="Premiered"
+                            label="Premired"
                             value={movie.premiered}
                             minDate={new Date('2021-01-01')}
                             onChange={(newValue) => {
