@@ -115,12 +115,10 @@ function NewSubscription_Comp(props) {
 
                 </form>
 
-
                 <br />
             </fieldset>
 
         </div>
     );
 }
-
 export default NewSubscription_Comp;
