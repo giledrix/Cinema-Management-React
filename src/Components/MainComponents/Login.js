@@ -147,10 +147,7 @@ function Login_Comp(props) {
                     {"First time login ?"}
                 </DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        The username AND the password is "admin".
-                        Please be patient when login for the first time,
-                        The free hosting server is slow, immediately after login the web site will run normally.
+                    <DialogContentText id="alert-dialog-description">The username AND the password is "admin".Please be patient when login for the first time,The free hosting server is slow, immediately after login the web site will run normally.
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
