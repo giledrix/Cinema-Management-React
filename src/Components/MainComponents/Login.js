@@ -13,6 +13,11 @@ import { BsFillLockFill } from 'react-icons/bs';
 import Background from '../../Style/images/login_background.jpg';
 import { useSnackbar } from 'notistack';
 import { circularProgressClasses } from '@material-ui/core';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 
 const useStyles = makeStyles({
@@ -57,6 +62,12 @@ function Login_Comp(props) {
     const [passError, setPassError] = useState({ isInvalid: false, errorHelper: '' });
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
+    const [open, setOpen] = React.useState(true);
+
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
 
     // Auto login if user is have verified token
@@ -124,6 +135,29 @@ function Login_Comp(props) {
             height: '100vh',
             display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'
         }}>
+        
+        <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"First time login ?"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        The username AND the password is "admin".
+                        Please be patient when login for the first time,
+                        The free hosting server is slow, immediately after login the web site will run normally.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} autoFocus>
+                        Agree
+                    </Button>
+                </DialogActions>
+            </Dialog>
 
             <Box id="formBox"
                 sx={{
