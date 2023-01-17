@@ -4,9 +4,7 @@ import SubscriptionsBL from '../../BL/SubscriptionsBL';
 import CurrentUser from '../../Utils/CurrentUser';
 import usersBL from '../../BL/usersBL';
 import { useSnackbar } from 'notistack';
-
 import Member_Comp from './Member';
-
 
 function AllMembers_Comp(props) {
 
