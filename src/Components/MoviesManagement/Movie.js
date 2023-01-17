@@ -17,7 +17,6 @@ import Subscriptions from './Subscriptions';
 import { useSnackbar } from 'notistack';
 
 
-
 const useStyles = makeStyles({
   root: {
     maxWidth: 300,
