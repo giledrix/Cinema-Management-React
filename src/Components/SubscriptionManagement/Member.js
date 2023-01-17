@@ -15,8 +15,6 @@ import SubscriptionsBL from '../../BL/SubscriptionsBL';
 import { useSnackbar } from 'notistack';
 
 
-
-
 function Member_Comp(props) {
     const [memberData, setMemberData] = useContext(SubscriptionsContext);
     const { enqueueSnackbar } = useSnackbar();
