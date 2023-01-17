@@ -67,5 +67,4 @@ const getSessionTimeout = () => {
 }
 
 
-
 export default { saveCurrentUserData, getName, getUserID, getUsername, getPassword, getClassification, getCinemaWSToken, getSubscriptionsWSToken: getSubscriptionsWSToken, getSessionTimeout, getPermissions, getPermission }
