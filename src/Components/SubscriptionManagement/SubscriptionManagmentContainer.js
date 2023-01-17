@@ -28,7 +28,6 @@ const theme = createTheme({
 });
 
 
-
 function SubscriptionManagementContainer_Comp(props) {
   const [allMembersSelected, setAllMembersSelected] = useState(true);
   const [addMemberSelected, setAddMemberSelected] = useState(false);
@@ -126,5 +125,4 @@ function SubscriptionManagementContainer_Comp(props) {
     </div>
   );
 }
-
 export default withRouter(SubscriptionManagementContainer_Comp);
