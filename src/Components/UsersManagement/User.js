@@ -62,7 +62,6 @@ function User_Comp(props) {
         enqueueSnackbar(message, { variant: variant });
       };
 
-
     return (
         <div>
             <Card className={classes.root} style={{ border: 'solid', backgroundColor: '#FFC107' }}>
@@ -86,7 +85,6 @@ function User_Comp(props) {
                                     })}
 
                                 </ul>
-
                             </fieldset>
 
                         </Typography>
@@ -107,5 +105,4 @@ function User_Comp(props) {
 
     );
 }
-
 export default withRouter(User_Comp);
