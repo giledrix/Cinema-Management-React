@@ -2,9 +2,9 @@ import axios from 'axios'
 import CurrentUser from '../Utils/CurrentUser'
 
 
-const moviesWS_url = "http://localhost:8000/api/movies"
-const subscriptionsWS_url = "http://localhost:8000/api/subscriptions"
-const membersWS_url = "http://localhost:8000/api/members"
+const moviesWS_url = "https://subscription-api.onrender.com/api/movies"
+const subscriptionsWS_url = "https://subscription-api.onrender.com/api/subscriptions"
+const membersWS_url = "https://subscription-api.onrender.com/api/members"
 
 
 const getAllMembersIncludeSubscriptions = async function () {
