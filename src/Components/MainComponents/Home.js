@@ -4,7 +4,6 @@ import '../../Style/Home.css';
 
 function Home_Comp() {
 
-
     return (
 
         <div style={{
