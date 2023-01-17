@@ -31,9 +31,7 @@ function MovieWatched_Comp(props) {
             <fieldset id="subscriptions_frame" style = {{borderColor: 'black'}}>
                 <b>Movies Watched : </b> <br />
 
-            
-
-
+        
                 <Button className={classes.root} variant="outlined"  size="small" onClick={() => setShowNewSubscribe(!showNewSubscribe)} style={{ minWidth: '100px', maxHeight: '30px', color: '#FFC107' }} >
                     Subscribe to new movie
                 </Button>
