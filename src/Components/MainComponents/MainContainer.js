@@ -9,7 +9,6 @@ function MainContainer_Comp() {
   return (
     <div>
 
-
       {/* Single Page Application */}
       <Switch>
         <Route exact path="/" component={Login_Comp} />
