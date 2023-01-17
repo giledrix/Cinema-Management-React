@@ -3,7 +3,6 @@ import { Link, withRouter } from 'react-router-dom';
 
 function Subscriptions_Comp(props) {
 
-
     return (
         <div>
             <fieldset id="subscriptions_frame" style={{ borderColor: 'black' }}>
@@ -23,5 +22,4 @@ function Subscriptions_Comp(props) {
         </div>
     );
 }
-
 export default withRouter(Subscriptions_Comp);
