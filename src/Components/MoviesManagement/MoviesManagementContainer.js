@@ -1,4 +1,3 @@
-
 import { MoviesDataContextProvider } from './MoviesContext'
 import { Switch, Route, useRouteMatch, withRouter } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -133,6 +132,5 @@ function MoviesManagementContainer_Comp(props) {
     </div>
   );
 }
-
 
 export default withRouter(MoviesManagementContainer_Comp);
