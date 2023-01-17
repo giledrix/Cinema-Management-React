@@ -3,7 +3,7 @@ import axios from 'axios'
 import CurrentUser from '../Utils/CurrentUser'
 
 
-const url = "http://localhost:9000/api/users"
+const url = "https://cinema-api-kslf.onrender.com/api/users"
 
 
 const loginValidation = (user) => {
