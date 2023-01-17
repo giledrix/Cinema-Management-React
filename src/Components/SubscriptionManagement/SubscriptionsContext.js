@@ -2,7 +2,6 @@ import { createContext, useState } from "react";
 
 //create my context
 export const SubscriptionsContext = createContext();
-
 export const SubscriptionDataContextProvider = props => {
 
     // Define in state all the data i want to share with every child components
