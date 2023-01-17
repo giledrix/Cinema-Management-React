@@ -14,7 +14,6 @@ import Background from '../../Style/images/moviesBG.png';
 import { useSnackbar } from 'notistack';
 
 
-
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(2),
