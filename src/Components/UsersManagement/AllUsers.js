@@ -30,7 +30,6 @@ function AllUsers_Comp(props) {
       else {
         getAllUsers();
       }
-
     }
 
   }, []);
@@ -57,8 +56,7 @@ function AllUsers_Comp(props) {
           return <User_Comp key={user.id} getUsersCallback={() => getAllUsers()} userData={user} />
         })
       }
-
-
+      
     </div>
   );
 }
