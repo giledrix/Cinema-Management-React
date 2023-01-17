@@ -26,7 +26,6 @@ const theme = createTheme({
   }
 });
 
-
 function UsersManagementContainer_Comp(props) {
   const [allUsersSelected, setAllUsersSelected] = useState(true);
   const [addUserSelected, setAddUserSelected] = useState(false);
@@ -61,7 +60,6 @@ function UsersManagementContainer_Comp(props) {
         props.history.push('/');
       }
     }
-
 
   }, []);
 
@@ -120,10 +118,8 @@ function UsersManagementContainer_Comp(props) {
 
       </UsersDataContextProvider>
 
-
     </div>
   );
 }
-
 
 export default withRouter(UsersManagementContainer_Comp);
