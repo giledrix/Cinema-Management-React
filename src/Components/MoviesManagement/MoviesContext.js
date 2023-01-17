@@ -8,6 +8,7 @@ export const MoviesDataContextProvider = props => {
     // Here i define in state all the data i want to share with every children's components
     const [movieData, setMovieData] = useState({ id: '', Name: '', Genres: [], Image: '', Premiered: '' });
 
+    
     return (
         // pass pointer to movieData and setMovieData to all components
         <MoviesContext.Provider value={[movieData, setMovieData]}>
