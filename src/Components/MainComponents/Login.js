@@ -14,11 +14,7 @@ import { BsFillLockFill } from 'react-icons/bs';
 import Background from '../../Style/images/login_background.jpg';
 import { useSnackbar } from 'notistack';
 import { circularProgressClasses } from '@material-ui/core';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+
 
 
 const useStyles = makeStyles({
@@ -58,17 +54,11 @@ const useStyles = makeStyles({
 
 function Login_Comp(props) {
 
-    const [user, setUser] = useState({ username: '', password: '' });
+    const [user, setUser] = useState({ username: 'admin', password: 'admin' });
     const [usernameError, setUsernameError] = useState({ isInvalid: false, errorHelper: '' });
     const [passError, setPassError] = useState({ isInvalid: false, errorHelper: '' });
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
-    const [open, setOpen] = React.useState(true);
-
-
-    const handleClose = () => {
-        setOpen(false);
-    };
 
 
     // Auto login if user is have verified token
@@ -137,25 +127,6 @@ function Login_Comp(props) {
             display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'
         }}>
         
-        <Dialog
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-            >
-                <DialogTitle id="alert-dialog-title">
-                    {"First time login ?"}
-                </DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">The username AND the password is "admin".Please be patient when login for the first time,The free hosting server is slow, immediately after login the web site will run normally.
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} autoFocus>
-                        Agree
-                    </Button>
-                </DialogActions>
-            </Dialog>
 
             <Box id="formBox"
                 sx={{
@@ -173,7 +144,7 @@ function Login_Comp(props) {
                     <TextField
                         id="outlined-basic"
                         label="Username"
-                        defaultValue="Admin"
+                        defaultValue="admin"
                         variant="outlined"
                         type="text"
                         name="username"
@@ -200,7 +171,7 @@ function Login_Comp(props) {
                         }} />
                     <br />
 
-                    <TextField id="outlined-error-helper-text" label="Password" variant="outlined" type="password" defaultValue="Admin" name="password" error={passError.isInvalid ? true : false} helperText={passError.errorHelper}
+                    <TextField id="outlined-error-helper-text" label="Password" variant="outlined" type="password" defaultValue="admin" name="password" error={passError.isInvalid ? true : false} helperText={passError.errorHelper}
                         onChange={e => setUser({ ...user, password: e.target.value })}
                         InputProps={{
                             classes: {
