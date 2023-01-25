@@ -1,10 +1,27 @@
 # Movies & Subscriptions Management Web Application - Front (React.js)
 
 
+Movies & Subscription management web application
+is a M.E.R.N Stack project that simulates an internal corporate management system for managing movie subscriptions.
+
+The project consists of a React client and Node.js Web Service's in REST API configuration.
+In fact, the client is connected to four WS servers, two of them are internal (self-built) And two more are external.
+The Web services using JSON files and MongoDB with the Mongoose layer as additional data sources.
+
+<b>On the client side I will demonstrate:</b>
+
+• Using Single Page Application – in order to obtain a fast and smooth user experience similar to an application, with this approach we can reduce the number of renderings, refreshing, and reloading of the pages and even reduce the traffic on the server side.
+• Using Routers, Nested Routers.
+• Using Context API - in order to transfer information throughout the hierarchy of components while understanding the "Composition" principle and thus avoid "contamination" of components that have no use for this information.
+• Working with several data sources (internal/external web-services, JSON files, MongoDB) while performing complex data shaping.
+• Using hooks to integrate into the life cycle of components.
 
 
+<b>On the server side I will demonstrate:</b>
+• Correct distribution of components while implementing the Micro services configuration for my server - separation of processes using DAL components and Business Logic layers
+• Using JWT - for the purpose of securing the Routers and authenticating users, only authorized users will be able to receive and write information to the servers. In addition, I will use the Token that JWT created for me to configure a Session Timeout, time limit for users in the system and to prevent a single token that leaked out to be used for unauthorized access to the servers.
+• Combination of Master Details with CRUD + work with JSON files + work with external Web Services.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## System Architecture
 
@@ -67,7 +84,7 @@ yet).<br/>
 
 
 
-### >Cinema WS : <br/>
+### Cinema WS : <br/>
 This is a Node based REST API that provides a management system for movies and subscriptions.<br/>
 System users<br/>
 Only authorized users can log in to the web site.<br/>
