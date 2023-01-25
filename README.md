@@ -12,7 +12,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Data Sources Structures:
 
-<ins>Users.json</ins>
+<ins>Users.json</ins><br/>
 A json file stores the system users data. Each user has an ID & name
 
 <ins>Permissions.json</ins>
