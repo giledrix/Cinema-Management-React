@@ -48,8 +48,8 @@ https://api.tvmaze.com/shows
      
 3.Subscriptions – A collection stores the data of all the subscriptions:<br/>
 
-      _id (ObjectId)
-      MemberId (ObjectId)
+      _id (ObjectId)<br/>
+      MemberId (ObjectId)<br/>
       Movies ( an Array of { movieId : Object Id, date : Date} ) - This field store all the movies
       the member (subscription) watched and their dates<br/>
 
@@ -75,31 +75,31 @@ The first user is the Admin and only he can manage other users (create, change &
 
 The Users.json stores the following data for every user:<br/>
 
-   Id (The _id that created in the Data Base)
-   First Name 
-   Last Name
-   Created date
+   Id (The _id that created in the Data Base)<br/>
+   First Name <br/>
+   Last Name<br/>
+   Created date<br/>
    SessionTimeOut ( number) – the duration (in minutes) a user can work on the system
    once he logged in.
    
    
 The Permissions.json stores all the user permissions regarding the movies management system:<br/>
 
-  Id (The _id that created in the Data Base)
-  Permissions - an array of permissions (strings)
-      “View Subscriptions”
-      “Create Subscriptions”
-      “Delete Subscriptions”
-      “View Movies”
-      “Create Movies”
-      “Delete Movies”
-<b>A user can have many permissions !</b>
+  Id (The _id that created in the Data Base)<br/>
+  Permissions - an array of permissions (strings)<br/>
+      “View Subscriptions”<br/>
+      “Create Subscriptions”<br/>
+      “Delete Subscriptions”<br/>
+      “View Movies”<br/>
+      “Create Movies”<br/>
+      “Delete Movies”<br/>
+<b>A user can have many permissions !</b><br/>
 
 
-The User DB database stored a collection with the following data:
-   _Id (ObjectId)
-   UserName ( Required for login)
-   Password ( Required for login)
+The User DB database stored a collection with the following data:<br/>
+   _Id (ObjectId)<br/>
+   UserName ( Required for login)<br/>
+   Password ( Required for login)<br/>
    
 <b>The system starts with only one (pre-defined) record of the
 System Admin data (both in the json files and in the data base)</b>
