@@ -1,4 +1,4 @@
-7# Movies & Subscriptions Management Web Application - Front (React.js)
+# Movies & Subscriptions Management Web Application - Front (React.js)
 
 
 
@@ -51,12 +51,19 @@ https://api.tvmaze.com/shows
       _id (ObjectId)
       MemberId (ObjectId)
       Movies ( an Array of { movieId : Object Id, date : Date} ) - This field store all the movies
-      the member (subscription) watched and their dates
+      the member (subscription) watched and their dates<br/>
 
 ## System Components:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<ins>Subscriptions WS</ins><br/>
+This is a Node based REST api that provide services/data about members (subscriptions), movies and the
+movies the members watched.<br/>
+When the REST API server starts, it pulled all the data from the external members & movies web services
+and populated the relevant data in the relevant collections (Members & Movies collections) in the
+Subscriptions DB ( a MongoDB data base).<br/>
+At this point, the Subscriptions collection is empty (as none of the members has not watched any movie
+yet).<br/>
+<b>From this point, all the data will be managed in the Subscriptions DB !!!</b>
 
 ### `npm run build`
 
