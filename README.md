@@ -55,7 +55,7 @@ https://api.tvmaze.com/shows
 
 ## System Components:
 
-<ins>Subscriptions WS</ins><br/>
+<ins>Subscriptions WS : </ins><br/>
 This is a Node based REST api that provide services/data about members (subscriptions), movies and the
 movies the members watched.<br/>
 When the REST API server starts, it pulled all the data from the external members & movies web services
@@ -63,7 +63,46 @@ and populated the relevant data in the relevant collections (Members & Movies co
 Subscriptions DB ( a MongoDB data base).<br/>
 At this point, the Subscriptions collection is empty (as none of the members has not watched any movie
 yet).<br/>
-<b>From this point, all the data will be managed in the Subscriptions DB !!!</b>
+<b>From this point, all the data will be managed in the Subscriptions DB !!!</b><br/>
+
+
+
+<ins>Cinema WS : </ins><br/>
+This is a Node based REST API that provides a management system for movies and subscriptions.<br/>
+System users<br/>
+Only authorized users can log in to the web site.<br/>
+The first user is the Admin and only he can manage other users (create, change & remove)<br/>
+
+The Users.json stores the following data for every user:<br/>
+
+   Id (The _id that created in the Data Base)
+   First Name 
+   Last Name
+   Created date
+   SessionTimeOut ( number) – the duration (in minutes) a user can work on the system
+   once he logged in.
+   
+   
+The Permissions.json stores all the user permissions regarding the movies management system:<br/>
+
+  Id (The _id that created in the Data Base)
+  Permissions - an array of permissions (strings)
+      “View Subscriptions”
+      “Create Subscriptions”
+      “Delete Subscriptions”
+      “View Movies”
+      “Create Movies”
+      “Delete Movies”
+<b>A user can have many permissions !</b>
+
+
+The User DB database stored a collection with the following data:
+   _Id (ObjectId)
+   UserName ( Required for login)
+   Password ( Required for login)
+   
+<b>The system starts with only one (pre-defined) record of the
+System Admin data (both in the json files and in the data base)</b>
 
 ### `npm run build`
 
