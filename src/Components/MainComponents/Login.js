@@ -173,6 +173,7 @@ function Login_Comp(props) {
                     <TextField
                         id="outlined-basic"
                         label="Username"
+                        defaultValue="Admin"
                         variant="outlined"
                         type="text"
                         name="username"
@@ -199,7 +200,7 @@ function Login_Comp(props) {
                         }} />
                     <br />
 
-                    <TextField id="outlined-error-helper-text" label="Password" variant="outlined" type="password" name="password" error={passError.isInvalid ? true : false} helperText={passError.errorHelper}
+                    <TextField id="outlined-error-helper-text" label="Password" variant="outlined" type="password" defaultValue="Admin" name="password" error={passError.isInvalid ? true : false} helperText={passError.errorHelper}
                         onChange={e => setUser({ ...user, password: e.target.value })}
                         InputProps={{
                             classes: {
