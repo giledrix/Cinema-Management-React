@@ -1,4 +1,4 @@
-# Movies & Subscriptions Management Web Application - Front (React.js)
+7# Movies & Subscriptions Management Web Application - Front (React.js)
 
 
 
@@ -13,14 +13,18 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Data Sources Structures:
 
 <ins>Users.json</ins><br/>
-A json file stores the system users data. Each user has an ID & name
+A json file stores the system users data. Each user has an ID , name , created date , session timeout
 
 <ins>Permissions.json</ins><br/>
 A json file stores the users permissions. Each record (user) has a user id and array of permissions.
 
 
 <ins>UsersDB</ins><br/>
-A MongoDB database who stores user names & passwords 
+A MongoDB database who stores :<br/>
+     _id (ObjectId)<br/>
+    Username (String)<br/>
+    Password ( String)<br/>
+    Classification (String)<br/>
 
 <ins>SubscriptionsDB</ins><br/>
 A MongoDB database holds 3 collections :
@@ -29,10 +33,27 @@ Members WS at https://jsonplaceholder.typicode.com/users :
 
     _id (ObjectId)<br/>
     Name (String)<br/>
-    Email ( String)<br/>
+    Email (String)<br/>
     City (String)<br/>
+    
+2. Movies – A collection that stores movies data pulled from the Movies WS as
+https://api.tvmaze.com/shows
 
-### `npm test`
+     _id (ObjectId)
+     Name (String)<br/>
+     Genres ( Array of Strings) <br/>
+     Image ( A string – The url of the image picture)<br/>
+     Premiered (Date)<br/>
+     
+     
+3.Subscriptions – A collection stores the data of all the subscriptions:<br/>
+
+      _id (ObjectId)
+      MemberId (ObjectId)
+      Movies ( an Array of { movieId : Object Id, date : Date} ) - This field store all the movies
+      the member (subscription) watched and their dates
+
+## System Components:
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
