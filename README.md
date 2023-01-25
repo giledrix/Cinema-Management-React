@@ -10,13 +10,19 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ![2](https://user-images.githubusercontent.com/41838762/214542500-ae643b80-284c-44ad-b7a7-f46088482225.png)
 
-### `npm start`
+## Data Sources Structures:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<ins>Users.json</ins>
+A json file stores the system users data. Each user has an ID & name
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<ins>Permissions.json</ins>
+A json file stores the users permissions. Each record (user) has a user id and array of permissions.
+UsersDB
+A MongoDB database who stores user names & passwords
+SubscriptionsDB
+A MongoDB database holds 3 collections :
+1. Members – A collection that stores the subscription members data pulled from the
+Members WS at https://jsonplaceholder.typicode.com/users :
 
 ### `npm test`
 
