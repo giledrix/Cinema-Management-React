@@ -134,3 +134,26 @@ If the UserName is NOT exist in the data base, the page will present a proper me
 will fail!
 ![‏‏צילום מסך (13)](https://user-images.githubusercontent.com/41838762/214558024-d02d1cac-fe84-447b-bcaf-4f1574904773.png)
 
+##### 3 – Main Page
+The Main page contain a menu of the system movies & subscriptions options
+<b>For the Sys Admin ONLY, there will be another Menu option called “Manage Users”</b>
+- Movies – Will Redirect to “Movies” Page
+- Subscriptions – Will redirect to “Subscriptions” Page
+- Users Management – Visible only to the sys Admin – will redirect to “Manage Users” page
+- Logout – Will log out the current user and redirect to “Login” Page
+
+![‏‏צילום מסך (14)](https://user-images.githubusercontent.com/41838762/214559384-9bdef17d-470f-4e8f-a885-c3180677f3fd.png)
+
+##### 4 - ManageUsers Page
+This page has a menu with 2 options:
+- All Users (default) – shows the “Users” page
+- Add User- redirect to “Add User” page
+
+
+##### 5. “All Users” Page
+This page presents all the users data :
+- Click on “Edit” button will redirect to “Edit User” page
+- Click on “Delete” button will delete the user’s and all his data from the system
+
+![‏‏צילום מסך (15)](https://user-images.githubusercontent.com/41838762/214559864-c03130f5-186d-4848-9342-80a9def44cb6.png)
+
