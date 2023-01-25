@@ -1,12 +1,14 @@
-# Getting Started with Create React App
-![2](https://user-images.githubusercontent.com/41838762/214542500-ae643b80-284c-44ad-b7a7-f46088482225.png)
+# Movies & Subscriptions Management Web Application - Front (React.js)
+
+
+
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## System Architecture
 
-In the project directory, you can run:
+![2](https://user-images.githubusercontent.com/41838762/214542500-ae643b80-284c-44ad-b7a7-f46088482225.png)
 
 ### `npm start`
 
