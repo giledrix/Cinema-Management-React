@@ -55,7 +55,7 @@ https://api.tvmaze.com/shows
 
 ## System Components:
 
-<ins>Subscriptions WS : </ins><br/>
+### Subscriptions WS : <br/>
 This is a Node based REST api that provide services/data about members (subscriptions), movies and the
 movies the members watched.<br/>
 When the REST API server starts, it pulled all the data from the external members & movies web services
@@ -67,7 +67,7 @@ yet).<br/>
 
 
 
-<ins>Cinema WS : </ins><br/>
+### >Cinema WS : <br/>
 This is a Node based REST API that provides a management system for movies and subscriptions.<br/>
 System users<br/>
 Only authorized users can log in to the web site.<br/>
@@ -120,4 +120,17 @@ First time users (which don’t have password yet) will click on “create accou
 them to a “CretaeAccount” page
 
 ![‏‏צילום מסך (12)](https://user-images.githubusercontent.com/41838762/214557359-89f4b031-4b02-4f2b-91ed-a395fa7a8ca0.png)
+
+
+##### 2 – CreateAccount Page
+This page will allow to a new user (that has been created by the Sys admin) to setup his login details. The
+page will present 2 text boxes:
+- User Name – the given UserName from the SYS Admin
+- Password – a new password
+
+A click on “Create” button will check: If the UserName exists in the data base, it will store the new
+password and redirect back to LogIn page.
+If the UserName is NOT exist in the data base, the page will present a proper message and the creation
+will fail!
+![‏‏צילום מסך (13)](https://user-images.githubusercontent.com/41838762/214558024-d02d1cac-fe84-447b-bcaf-4f1574904773.png)
 
