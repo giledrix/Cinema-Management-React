@@ -322,7 +322,7 @@ This page allows us to edit the member’s data
 
 
 
-15 – “Add Member” Page
+##### 15 – “Add Member” Page
 This page allows us to add a new member
 This page is visible only to users with the right permission
 
