@@ -15,14 +15,22 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 <ins>Users.json</ins><br/>
 A json file stores the system users data. Each user has an ID & name
 
-<ins>Permissions.json</ins>
+<ins>Permissions.json</ins><br/>
 A json file stores the users permissions. Each record (user) has a user id and array of permissions.
-UsersDB
-A MongoDB database who stores user names & passwords
-SubscriptionsDB
+
+
+<ins>UsersDB</ins><br/>
+A MongoDB database who stores user names & passwords 
+
+<ins>SubscriptionsDB</ins><br/>
 A MongoDB database holds 3 collections :
 1. Members – A collection that stores the subscription members data pulled from the
 Members WS at https://jsonplaceholder.typicode.com/users :
+
+    _id (ObjectId)<br/>
+    Name (String)<br/>
+    Email ( String)<br/>
+    City (String)<br/>
 
 ### `npm test`
 
